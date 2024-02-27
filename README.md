@@ -1,7 +1,31 @@
 # WeatherApp
-*Vi kommer att gå igenom denna beskrivning tillsammans i klassrummet. Tills dess är beskrivningen preliminär.*
+- [Api som används](https://open-meteo.com/en/docs/)
+- Använd typescript och vue
+  
+## Värden vi vill ha: 
+- Temperature (2 m)
+- Relative Humidity (2 m)
+- Apparent Temperature
+- Precipitation Probability
+- Precipitation (rain + showers + snow)
+- Wind Speed (10 m)
+- Wind Direction (10 m)
+- Wind Gusts (10 m)
 
-# Inlämningsuppgift 4: Projekt
+## Design:
+tabell version  :: Utgå från klart.se
+- skapa en modul?
+diagram version :: Utgå från smhi
+- använd canvas till att skapa diagrammet
+
+  #### Easter egg :: låtar baserat på väder?
+
+## Uppdelnining av program:
+- (klass?) skapa ett sätt att bygga en api url request
+  -- glöm ej geocoding och translation till kordinater
+- klass för skpande av diagram
+
+# Inlämningsuppgift 4: Projekt. Lärarens instruktioner:
 Skriv en fullständig applikation med Vue baserat på era egna idéer.
 
 ## Krav för G
