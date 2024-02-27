@@ -23,7 +23,7 @@ diagram version :: Utgå från smhi
 ## Uppdelnining av program:
 - (klass?) skapa ett sätt att bygga en api url request
   -- glöm ej geocoding och translation till kordinater
-- klass för skpande av diagram
+- klass för skapande av diagram
 
 # Inlämningsuppgift 4: Projekt. Lärarens instruktioner:
 Skriv en fullständig applikation med Vue baserat på era egna idéer.
