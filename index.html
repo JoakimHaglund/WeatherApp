@@ -1,29 +1,29 @@
-    
-    <head>
-        <title>Vue BMI</title>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/style.css">
-        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-        <script src="scripts/main.js" defer></script>
-    </head>
-    
-    <body>
-        <div id="app">
-            <form @submit.prevent="calculateBMI">
-                <p>
-                    <label for="weight-input">Weight (kg): </label>
-                    <input type="number" v-model="weight" id="weight-input">
-                </p>
-                <p>
-                    <label for="height-input">Height (m): </label>
-                    <input type="number" v-model="height" id="height-input" step="0.01">
-                </p>
-                <button type="submit">Calculate BMI</button>
-            </form>
-            <p v-if="bmi !== null">Your BMI: {{ bmi.toFixed(1) }}</p>
-        </div>
-    </body>
-    
-    </html>
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <title>WeatherApp</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="scripts/main.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <form @submit.prevent="fetchData">
+            <p>
+                <label for="location-input">Location: </label>
+                <input type="text" v-model="location" id="location-input">
+            </p>
+            <button type="submit">Search</button>
+        </form>
+        <!--<p v-if="bmi !== null">Your BMI: {{ bmi.toFixed(1) }}</p>-->
+
+
+    </div>
+</body>
+
+</html>
