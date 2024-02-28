@@ -1,0 +1,51 @@
+/*
+======================================================================
+Globala regler                                                        
+======================================================================
+*/
+
+html{
+	/*Bra storlek för att använda REM då 62.5% av 16px är 10*/
+	font-size: 62.5%;  
+}
+*{
+	font-size: 1.6rem;
+	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+	margin: auto;
+	padding: 20px;
+	max-width: 900px;
+	/*outline: 1px solid red;*/
+	/*background-color: #b3c6ff;*/
+	
+}
+/*
+======================================================================
+Regler för länkar                                                     
+======================================================================
+*/
+
+a:link,
+a:visited {
+	text-decoration: none;
+	color: #000;
+}
+
+a:focus,
+a:hover {
+	text-decoration: underline;
+}
+
+/*
+======================================================================
+Andra regler                                                         
+======================================================================
+*/
+
+
+
+

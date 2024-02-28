@@ -1,8 +1,4 @@
-import './assets/main.css'
-
-import { createApp } from 'vue'
-
-createApp({
+Vue.createApp({
     methods: {
         calculateBMI() {
             this.bmi = this.weight / (this.height * this.height);
