@@ -25,7 +25,7 @@ diagram version :: Utgå från smhi
   - glöm ej geocoding och translation till kordinater
 - Tabellklass?
 - Diagramklass
-  - canvas
+  - canvas < SVG (Svg kan vara bättre för vårat syfte samt enklare)
 - Api-url builder
   - geocoding method
     - input : String -> SearchName
