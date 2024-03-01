@@ -20,9 +20,32 @@
             </p>
             <button type="submit">Search</button>
         </form>
+
+        <div class="overview" v-for="temp in weather">
+            <div class="showTemperature">
+                <span>Temperature: {{ temp }} °C</span>
+            </div>
+           
+        </div>
+        
+        <h2>TableTest:</h2>
+        <table>
+            <tr>
+                <th>temperature_2m</th>
+                <th>relative_humidity_2m</th>
+                <th>apparent_temperature</th>
+                <th>precipitation_probability</th>
+                <th>precipitation</th>
+                <th>wind_speed_10m</th>
+                <th>wind_direction_10m</th>
+                <th>wind_gusts_10m</th>
+            </tr>
+            <tr v-for=" test in weatherTestTable.temp">
+                <td>{{ test }}</td>
+            </tr>
+        </table>
         <!--<p v-if="bmi !== null">Your BMI: {{ bmi.toFixed(1) }}</p>-->
-
-
+        
     </div>
 </body>
 

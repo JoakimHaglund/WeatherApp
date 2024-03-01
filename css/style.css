@@ -46,6 +46,15 @@ Andra regler
 ======================================================================
 */
 
-
+.overview{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	flex-direction: row;
+	border-color:1px black solid;
+}
+.showTemperature{
+	
+}
 
 

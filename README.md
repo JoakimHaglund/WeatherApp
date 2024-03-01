@@ -18,11 +18,14 @@ tabell version  :: Utgå från klart.se
 diagram version :: Utgå från smhi
 - använd canvas till att skapa diagrammet
 
+hämta svg ikoner härifrån?:
+https://www.reshot.com/free-svg-icons/arrow/
+
   #### Easter egg :: låtar baserat på väder?
 
-## Uppdelnining av program:
+## Uppdelning av program:
 - (klass?) skapa ett sätt att bygga en api url request
-  - glöm ej geocoding och translation till kordinater
+  - glöm ej geocoding och translation till koordinater
 - Tabellklass?
 - Diagramklass
   - canvas < SVG (Svg kan vara bättre för vårat syfte samt enklare)
@@ -31,7 +34,7 @@ diagram version :: Utgå från smhi
     - input : String -> SearchName
     - output : Long, Lat (DataObject?)
     - get data: Long, Lat, Plasename, Admin (city country)
-  - GetWheaterData
+  - GetWeatherData
       - Input : lat, long, options array?
       - out data.json 
 ***
