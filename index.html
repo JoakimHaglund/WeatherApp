@@ -5,46 +5,56 @@
     <title>WeatherApp</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.index">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="scripts/main.js" defer></script>
 </head>
 
 <body>
+    <header>
+        <h1>Som Klart.se fast bättre™</h1>
+    </header>
     <div id="app">
         <form @submit.prevent="fetchData">
             <p>
-                <label for="location-input">Location: </label>
-                <input type="text" v-model="location" id="location-input">
+                <label for="location-input"></label>
+                <input type="text" placeholder="Search here" v-model="location" id="location-input">
             </p>
             <button type="submit">Search</button>
         </form>
+        <div class="container" v-on:scroll="scrollTranslate">
 
-        <div class="overview">
-            <div class="showTemperature" v-for="temp in weather">
-                <span>Temperature: {{ temp }} °C</span>
+            <div class="overview" v-if="hasData" v-for="(value, index) in weather.time">
+                <div class="dateTime">
+                    <h3 class="itemDate">
+                        <time v-if="weather.time[index]" :datetime="weather.time[index]">{{
+                            getDayName(weather.time[index]) }}</time>
+                    </h3>
+                </div>
+                <div class="showLocation">
+                    <span>{{ location }} / {{country}} </span>
+                </div>
+                <div class="temperature gray-last-child">
+                    <span>{{ weather.temperature_2m_max[index] }}°C</span>
+                    <span>Feels like: {{ weather.apparent_temperature_max[index] }}°C</span>
+                </div>
+                <div class="showPrecipitation gray-last-child">
+                    <span>{{ weather.precipitation_sum[index] }} mm </span>
+                    <span> {{ weather.precipitation_probability_max[index] }} %</span>
+                </div>
+                <div class="showWindSpeed gray-last-child">
+                    <span>
+                        <span
+                            :style="{ display: 'inline-block', transform: 'rotate(' + weather.wind_direction_10m_dominant[index] + 'deg)' }">↑</span>
+                        {{ (weather.wind_speed_10m_max[index] / 3.6).toFixed(2) }} m/s
+                    </span>
+                    <span>{{ (weather.wind_gusts_10m_max[index] / 3.6).toFixed(2) }}m/s </span>
+                </div>
+
             </div>
-           
         </div>
-        
-        <h2>TableTest:</h2>
-        <table>
-            <tr>
-                <th>temperature_2m</th>
-                <th>relative_humidity_2m</th>
-                <th>apparent_temperature</th>
-                <th>precipitation_probability</th>
-                <th>precipitation</th>
-                <th>wind_speed_10m</th>
-                <th>wind_direction_10m</th>
-                <th>wind_gusts_10m</th>
-            </tr>
-            <tr v-for=" test in weatherTestTable.temp">
-                <td>{{ test }}</td>
-            </tr>
-        </table>
-        
+
     </div>
 </body>
 
