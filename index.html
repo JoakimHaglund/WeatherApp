@@ -21,8 +21,8 @@
             <button type="submit">Search</button>
         </form>
 
-        <div class="overview" v-for="temp in weather">
-            <div class="showTemperature">
+        <div class="overview">
+            <div class="showTemperature" v-for="temp in weather">
                 <span>Temperature: {{ temp }} °C</span>
             </div>
            
@@ -44,7 +44,6 @@
                 <td>{{ test }}</td>
             </tr>
         </table>
-        <!--<p v-if="bmi !== null">Your BMI: {{ bmi.toFixed(1) }}</p>-->
         
     </div>
 </body>
