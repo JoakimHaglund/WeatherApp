@@ -118,8 +118,12 @@ Andra regler
 	overflow-x: scroll;
 	padding-bottom: 20px;
 	max-width: 800px;
-
+	-ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
+.container::-webkit-scrollbar {
+	display: none;
+  }
 
 .gray-last-child span:last-child {
 	font-size: 0.8em;
@@ -127,9 +131,44 @@ Andra regler
 	font-style: italic;
 }
 
-.windArrow{
+.windArrow {
 	color: #000 !important;
 	margin: 0.8rem;
 	font-weight: bold;
 	font-size: 1.7rem !important;
+}
+
+#scroll-left {
+	justify-content: center;
+	background: linear-gradient(to right,
+			rgba(255, 255, 255, 0.94) 50%,
+			rgba(255, 255, 255, 0) 100%);
+	z-index: 55;
+	position: absolute;
+	height: 294.5px;
+	border: none;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	width: 120px;
+}
+
+#scroll-right {
+	justify-content: center;
+	background: linear-gradient(to left,
+			rgba(255, 255, 255, 0.94) 50%,
+			rgba(255, 255, 255, 0) 100%);
+	z-index: 55;
+	position: absolute;
+	left: 1000px;
+	height: 294.5px;
+	border: none;
+	display: flex;
+	justify-content: start;
+	align-items: center;
+	width: 120px;
+}
+
+.hidden{
+	display: none;
 }

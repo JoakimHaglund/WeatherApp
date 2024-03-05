@@ -20,16 +20,27 @@ Vue.createApp({
         };
     },
     methods: {
+        scrollLeft(){
+            //scroll left
+        },
+        scrollRight(){
+            //scroll left
+        },
         greet(event) {
-            const name = ref('Vue.js')
-            alert(`Hello ${name.value}!`)
+            // `this` inside methods points to the current active instance
+            alert(`Hello!`)
             // `event` is the native DOM event
             if (event) {
               alert(event.target.tagName)
             }
           },
         scrollTranslate() {
-            return window.scrollX = window.scrollY;
+            let container = document.querySelector('.container');
+            console.log('Y: ' + window.scrollY);
+         container.scrollX = window.scrollY;
+        },
+        hideScroll(){
+            
         },
         getDayName(date) {
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -81,7 +92,8 @@ Vue.createApp({
                                     console.log(res);
                                     this.weather = res.daily;
                                     this.hasData = true;
-
+                                    let element = document.querySelector('.container');
+                                    element.classList.remove('hidden');
                                 });
                             });
 

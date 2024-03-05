@@ -13,7 +13,6 @@
 
 <body>
     <header>
-        <button @click="greet">Greet</button>
         <h1>Som Klart.se fast bättre™</h1>
     </header>
     <div id="app">
@@ -22,10 +21,12 @@
                 <label for="location-input"></label>
                 <input type="text" placeholder="Search here" v-model="location" id="location-input">
             </p>
-            <button type="submit">Search</button>
+            <button type="submit">🔍</button>
         </form>
-        <div class="container" v-on:scroll="scrollTranslate">
-
+        <div class="container hidden" v-on:hover="scrollTranslate">
+            <div id="scroll-left">
+                    <img src="/WeatherApp/css/resources/icons/reshot-icon-left-arrow-button-RF5DMQX396-95d98.svg" alt="">
+            </div>
             <div class="overview" v-if="hasData" v-for="(value, index) in weather.time">
                 <div class="dateTime">
                     <h3 class="itemDate">
@@ -54,9 +55,13 @@
                 </div>
 
             </div>
+            <div id="scroll-right">
+                <img src="/WeatherApp/css/resources/icons/reshot-icon-right-arrow-button-YAB8GEM7SD-c5f61.svg" alt="">
+            </div>
         </div>
 
     </div>
+    
 </body>
 
 </html>
