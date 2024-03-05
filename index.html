@@ -13,6 +13,7 @@
 
 <body>
     <header>
+        <button @click="greet">Greet</button>
         <h1>Som Klart.se fast bättre™</h1>
     </header>
     <div id="app">
@@ -45,8 +46,8 @@
                 </div>
                 <div class="showWindSpeed gray-last-child">
                     <span>
-                        <span
-                            :style="{ display: 'inline-block', transform: 'rotate(' + weather.wind_direction_10m_dominant[index] + 'deg)' }">↑</span>
+                        <span class="windArrow"
+                            :style="{ display: 'inline-block', transform: 'rotate(' + weather.wind_direction_10m_dominant[index] + 'deg)' }">↓</span>
                         {{ (weather.wind_speed_10m_max[index] / 3.6).toFixed(2) }} m/s
                     </span>
                     <span>{{ (weather.wind_gusts_10m_max[index] / 3.6).toFixed(2) }}m/s </span>

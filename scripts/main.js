@@ -20,6 +20,14 @@ Vue.createApp({
         };
     },
     methods: {
+        greet(event) {
+            const name = ref('Vue.js')
+            alert(`Hello ${name.value}!`)
+            // `event` is the native DOM event
+            if (event) {
+              alert(event.target.tagName)
+            }
+          },
         scrollTranslate() {
             return window.scrollX = window.scrollY;
         },
@@ -95,8 +103,9 @@ Vue.createApp({
     computed: {
 
         style(value) {
+            value = value + 180;
             return {
-                transform: 'rotate(' + value + 'deg)',
+                transform: 'rotate(' + value  + 'deg)',
                 display: 'inline-block'
             }
         }
