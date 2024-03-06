@@ -155,6 +155,7 @@ Andra regler
 	align-items: center;
 	min-width: 120px !important;
 	align-content: center;
+	cursor: pointer;
 }
 
 #scroll-right {
@@ -169,6 +170,7 @@ Andra regler
 	align-items: center;
 	min-width: 120px !important;
 	align-content: center;
+	cursor: pointer;
 }
 
 .hidden {
@@ -176,7 +178,6 @@ Andra regler
 }
 
 svg {
-	width: 400px;
-	height: 400px;
+	width: 600px;
 	background: white;
 }

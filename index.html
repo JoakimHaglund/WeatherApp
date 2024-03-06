@@ -25,8 +25,8 @@
         </form>
 
 
-        <div class="container hidden" v-on:hover="scrollTranslate">
-            <div id="scroll-left">
+        <div class="container hidden" v-on:hover="scrollTranslate"  @scroll="handleScroll" ref="scrollContainer">
+            <div id="scroll-left" @click="scrollLeft" v-show="showLeftScroll">
                 <img src="/WeatherApp/css/resources/icons/reshot-icon-left-arrow-button-RF5DMQX396-95d98.svg" alt="">
             </div>
             <div class="overview" v-if="hasData" v-for="(value, index) in weather.time">
@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div id="scroll-right">
+            <div id="scroll-right" @click="scrollRight"  v-show="showRightScroll">
                 <img src="/WeatherApp/css/resources/icons/reshot-icon-right-arrow-button-YAB8GEM7SD-c5f61.svg" alt="">
             </div>
         </div>

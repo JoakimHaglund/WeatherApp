@@ -1,5 +1,6 @@
 import * as svg from './drawSvg.js';
 
+
 Vue.createApp({
     data() {
         return {
@@ -18,38 +19,59 @@ Vue.createApp({
             wind_gusts_10m: "",
         }],*/
             weatherTestTable: [],
-        };
+            hasScrolledRight: false,
+            showRightScroll: true,
+            showLeftScroll:false
+        };  
     },
-    mounted() {
-        // Call the function to create SVG when the component is mounted
-        this.createNewSvg();
-    },
+
     methods: {
-        createNewSvg(){
-            svg.createDiagram();
+        createNewSvg() {
+            svg.createDiagram(this.weather);
             console.log('SVG')
         },
-        scrollLeft(){
+        scrollLeft() {
             //scroll left
+            console.log('clicked on Right Scroll!')
+            let element = document.querySelector('.container');
+            element.scrollLeft -= element.scrollWidth / 4;
+
+            this.hasScrolledRight = true;
         },
-        scrollRight(){
+        scrollRight() {
             //scroll left
+            console.log('clicked on Right Scroll!')
+            let element = document.querySelector('.container');
+            element.scrollLeft += element.scrollWidth / 4;
+
+            this.hasScrolledRight = true;
         },
-        greet(event) {
-            // `this` inside methods points to the current active instance
-            alert(`Hello!`)
-            // `event` is the native DOM event
-            if (event) {
-              alert(event.target.tagName)
-            }
-          },
         scrollTranslate() {
-            let container = document.querySelector('.container');
-            console.log('Y: ' + window.scrollY);
-         container.scrollX = window.scrollY;
+            const scrollContainer = this.$refs.scrollContainer;
+            const scrollLeft = scrollContainer.scrollLeft;
+            const scrollWidth = scrollContainer.scrollWidth;
+            const clientWidth = scrollContainer.clientWidth;
+
+            // Calculate scroll percentage
+            const scrollPercentage = (scrollLeft / (scrollWidth - clientWidth)) * 100;
+
+            console.log("Scroll Left:", scrollLeft);
+            console.log("Scroll Width:", scrollWidth);
+            console.log("Client Width:", clientWidth);
+            console.log("Scroll Percentage:", scrollPercentage.toFixed(2) + "%");
         },
-        hideScroll(){
-            
+        handleScroll() {
+            const scrollContainer = this.$refs.scrollContainer;
+            const isEndOfScroll = scrollContainer.scrollLeft + scrollContainer.clientWidth  >= scrollContainer.scrollWidth - 120;
+            const isStartOfScroll = scrollContainer.scrollLeft === 0;
+
+            this.showRightScroll = !isEndOfScroll;
+
+            this.showLeftScroll = !isStartOfScroll;
+            console.log('END: ' + isEndOfScroll + ' START: ' + isStartOfScroll);
+        },
+        hideScroll() {
+
         },
         getDayName(date) {
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -103,6 +125,7 @@ Vue.createApp({
                                     this.hasData = true;
                                     let element = document.querySelector('.container');
                                     element.classList.remove('hidden');
+                                    this.createNewSvg();
                                 });
                             });
 
@@ -126,11 +149,22 @@ Vue.createApp({
         style(value) {
             value = value + 180;
             return {
-                transform: 'rotate(' + value  + 'deg)',
+                transform: 'rotate(' + value + 'deg)',
                 display: 'inline-block'
             }
         }
 
 
+    },
+    watch: {
+        scrollContainer(value) {
+            if (value) {
+                value.addEventListener("scroll", this.handleScroll);
+            }
+        }
+    },
+    mounted() {
+        // Call the function to create SVG when the component is mounted
+        //this.createNewSvg();
     }
 }).mount('#app');
