@@ -1,3 +1,4 @@
+import * as svg from './drawSvg.js';
 
 Vue.createApp({
     data() {
@@ -19,7 +20,15 @@ Vue.createApp({
             weatherTestTable: [],
         };
     },
+    mounted() {
+        // Call the function to create SVG when the component is mounted
+        this.createNewSvg();
+    },
     methods: {
+        createNewSvg(){
+            svg.createDiagram();
+            console.log('SVG')
+        },
         scrollLeft(){
             //scroll left
         },

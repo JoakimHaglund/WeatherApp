@@ -26,6 +26,8 @@ body {
 	justify-content: center;
 	/*outline: 1px solid red;*/
 	background-color: #59f59a;
+	flex-direction: column;
+	align-items: center;
 }
 
 header {
@@ -118,12 +120,15 @@ Andra regler
 	overflow-x: scroll;
 	padding-bottom: 20px;
 	max-width: 800px;
-	-ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+	-ms-overflow-style: none;
+	/* IE and Edge */
+	scrollbar-width: none;
+	/* Firefox */
 }
+
 .container::-webkit-scrollbar {
 	display: none;
-  }
+}
 
 .gray-last-child span:last-child {
 	font-size: 0.8em;
@@ -139,36 +144,39 @@ Andra regler
 }
 
 #scroll-left {
-	justify-content: center;
 	background: linear-gradient(to right,
-			rgba(255, 255, 255, 0.94) 50%,
-			rgba(255, 255, 255, 0) 100%);
-	z-index: 55;
-	position: absolute;
+			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+	position: sticky;
+	left: 0;
 	height: 294.5px;
 	border: none;
 	display: flex;
-	justify-content: start;
+	justify-content: center;
 	align-items: center;
-	width: 120px;
+	min-width: 120px !important;
+	align-content: center;
 }
 
 #scroll-right {
-	justify-content: center;
 	background: linear-gradient(to left,
-			rgba(255, 255, 255, 0.94) 50%,
-			rgba(255, 255, 255, 0) 100%);
-	z-index: 55;
-	position: absolute;
-	left: 1000px;
+			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+	position: sticky;
+	right: 0;
 	height: 294.5px;
 	border: none;
 	display: flex;
-	justify-content: start;
+	justify-content: center;
 	align-items: center;
-	width: 120px;
+	min-width: 120px !important;
+	align-content: center;
 }
 
-.hidden{
+.hidden {
 	display: none;
+}
+
+svg {
+	width: 400px;
+	height: 400px;
+	background: white;
 }
