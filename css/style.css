@@ -90,6 +90,16 @@ Andra regler
 
 }
 
+#presentOptions {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	padding: 1rem;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
 .overview {
 	display: flex;
 	flex-wrap: wrap;
@@ -106,11 +116,11 @@ Andra regler
 	background-color: rgb(238, 238, 238);
 }
 
-.overview div {
+.overview section {
 	margin: 10px;
 }
 
-.overview div {
+.overview section {
 	display: grid;
 }
 
@@ -130,7 +140,13 @@ Andra regler
 	display: none;
 }
 
-.gray-last-child span:last-child {
+.gray-last-child p:last-child {
+	font-size: 0.8em !important;
+	color: gray;
+	font-style: italic;
+}
+
+.dateTime p{
 	font-size: 0.8em;
 	color: gray;
 	font-style: italic;
@@ -145,7 +161,7 @@ Andra regler
 
 #scroll-left {
 	background: linear-gradient(to right,
-			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+	rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
 	position: sticky;
 	left: 0;
 	height: 294.5px;
@@ -160,7 +176,7 @@ Andra regler
 
 #scroll-right {
 	background: linear-gradient(to left,
-			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+	rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
 	position: sticky;
 	right: 0;
 	height: 294.5px;
@@ -180,4 +196,62 @@ Andra regler
 svg {
 	width: 600px;
 	background: white;
+}
+
+#scroll-right img {
+	margin-left: 60%;
+}
+
+#scroll-left img{
+	margin-right: 60%;
+}
+
+@media screen and (max-width: 768px) {
+	body {
+		flex-wrap: nowrap;
+	}
+
+    .container {
+		display: block;
+	}
+	.overview {
+        flex-direction: row;
+		overflow-x: auto;
+		white-space: nowrap;
+		max-width: 550px;
+		margin: 0.5rem;
+		flex-wrap: nowrap;
+
+	}	
+	#scroll-left, #scroll-right {
+		display: none;
+	}
+	h1 {
+		font-size: 3rem;
+	}
+}
+@media screen and (max-width: 350px){
+
+	body {
+		flex-wrap: nowrap;
+	}
+		.container {
+			display: block;
+		}
+		.overview {
+			flex-direction: row;
+			overflow-x: auto;
+			white-space: nowrap;
+			max-width: 550px;
+			padding: 0.5rem;
+			flex-wrap: nowrap;
+		}	
+		#scroll-left, #scroll-right {
+			display: none;
+		}
+
+	h1 {
+	font-size: 3rem;
+	}
+	
 }

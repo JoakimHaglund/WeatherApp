@@ -19,43 +19,58 @@
         <form @submit.prevent="fetchData">
             <p>
                 <label for="location-input"></label>
-                <input type="text" placeholder="Search here" v-model="location" id="location-input">
+                <input type="text" placeholder="Search here" v-model="searchLocation" id="location-input">
             </p>
             <button type="submit">🔍</button>
         </form>
 
+    <ul id="presentOptions" v-if="searchPerformed">
+        <li>
+            <button @click="selectOption('hourly')" :disabled="selectedOption === 'hourly'">Daily Forecast</button>
+        </li>
+        <li>
+            <button @click="selectOption('7-day')" :disabled="selectedOption === '7-day'">7-Day Forecast</button>
+        </li>
+        <li>
+            <button @click="selectOption('14-day')" :disabled="selectedOption === '14-day'">14-Day Forecast</button>
+        </li>
+
+    </ul>
 
         <div class="container hidden" v-on:hover="scrollTranslate"  @scroll="handleScroll" ref="scrollContainer">
             <div id="scroll-left" @click="scrollLeft" v-show="showLeftScroll">
                 <img src="/WeatherApp/css/resources/icons/reshot-icon-left-arrow-button-RF5DMQX396-95d98.svg" alt="">
             </div>
-            <div class="overview" v-if="hasData" v-for="(value, index) in weather.time">
-                <div class="dateTime">
+            <!--Weather display template-->
+            <article class="overview" v-if="hasData" v-for="(value, index) in weather.time">
+                <section class="dateTime">
                     <h3 class="itemDate">
                         <time v-if="weather.time[index]" :datetime="weather.time[index]">{{
                             getDayName(weather.time[index]) }}</time>
-                    </h3>
-                </div>
-                <div class="showLocation">
-                    <span>{{ location }} / {{country}} </span>
-                </div>
-                <div class="temperature gray-last-child">
-                    <span>{{ weather.temperature_2m_max[index] }}°C</span>
-                    <span>Feels like: {{ weather.apparent_temperature_max[index] }}°C</span>
-                </div>
-                <div class="showPrecipitation gray-last-child">
-                    <span>{{ weather.precipitation_sum[index] }} mm </span>
-                    <span> {{ weather.precipitation_probability_max[index] }} %</span>
-                </div>
-                <div class="showWindSpeed gray-last-child">
-                    <span>
+                        </h3>
+                        <p>{{getMonthName(weather.time[index])}}</p>
+                </section>
+                <section class="showLocation gray-last-child">
+                    <p>{{ location }}</p>
+                    <p class="">{{ country }}</p>
+                </section>
+                <section class="temperature gray-last-child">
+                    <p>{{ weather.temperature_2m_max[index] }}°C</p>
+                    <p>Feels like: {{ weather.apparent_temperature_max[index] }}°C</p>
+                </section>
+                <section class="showPrecipitation gray-last-child">
+                    <p>{{ weather.precipitation_sum[index] }} mm </p>
+                    <p> {{ weather.precipitation_probability_max[index] }} %</p>
+                </section>
+                <section class="showWindSpeed gray-last-child">
+                    <p>
                         <span class="windArrow"
                             :style="{ display: 'inline-block', transform: 'rotate(' + weather.wind_direction_10m_dominant[index] + 'deg)' }">↓</span>
                         {{ (weather.wind_speed_10m_max[index] / 3.6).toFixed(2) }} m/s
-                    </span>
-                    <span>{{ (weather.wind_gusts_10m_max[index] / 3.6).toFixed(2) }}m/s </span>
-                </div>
-            </div>
+                    </p>
+                    <p>{{ (weather.wind_gusts_10m_max[index] / 3.6).toFixed(2) }}m/s </p>
+                </section>
+            </article>
 
             <div id="scroll-right" @click="scrollRight"  v-show="showRightScroll">
                 <img src="/WeatherApp/css/resources/icons/reshot-icon-right-arrow-button-YAB8GEM7SD-c5f61.svg" alt="">

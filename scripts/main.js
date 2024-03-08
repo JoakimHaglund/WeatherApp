@@ -1,10 +1,11 @@
 import * as svg from './drawSvg.js';
-
+import * as api from './weatherHandler.js';
 
 Vue.createApp({
     data() {
         return {
             hasData: false,
+            searchLocation: '',
             location: '',
             country: '',
             weather: [],
@@ -21,7 +22,8 @@ Vue.createApp({
             weatherTestTable: [],
             hasScrolledRight: false,
             showRightScroll: true,
-            showLeftScroll:false
+            showLeftScroll: false,
+            searchPerformed: false
         };  
     },
 
@@ -70,70 +72,70 @@ Vue.createApp({
             this.showLeftScroll = !isStartOfScroll;
             console.log('END: ' + isEndOfScroll + ' START: ' + isStartOfScroll);
         },
-        hideScroll() {
-
-        },
         getDayName(date) {
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             return dayNames[new Date(date).getDay()];
         },
+        getMonthName(date){
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            let day = date.substr(date.length - 2);
+            let dayNumber = parseInt(day);
+            let suffix = 'th';
+
+            if (dayNumber < 10) {
+                day = day.substr(1);
+            }
+
+            if (dayNumber === 1 || dayNumber === 21 || dayNumber === 31) {
+                suffix = 'st';
+            } else if (dayNumber === 2 || dayNumber === 22) {
+                suffix = 'nd';
+            } else if (dayNumber === 3 || dayNumber === 23) {
+                suffix = 'rd';
+            }
+
+            return day + suffix + ' of ' + monthNames[new Date(date).getMonth()];
+        },
+
         fetchData() {
             const geocodingParams = new URLSearchParams({
-                'name': this.location,
-                'count': '1',
+                'name': this.searchLocation,
+                'count': '10',
                 'language': 'en',
                 'format': 'json'
             });
+            api.fetchLocationInfo(this.searchLocation).then(locationData => {
+                console.log( locationData)
+                this.location = locationData[0].name;
+                this.country = locationData[0].country;
 
-            const urlGeocoding = 'https://geocoding-api.open-meteo.com/v1/search?' + geocodingParams.toString();
-
-            fetch(urlGeocoding, {
-                method: 'GET'
-            })
-                .then(response => {
-                    response.json().then(res => {
-                        this.location = res.results[0].name;
-                        this.country = res.results[0].country;
-                        const weatherParams = new URLSearchParams({
-                            'latitude': res.results[0].latitude,
-                            'longitude': res.results[0].longitude,
-                            'daily': [
-                                'temperature_2m_max',
-                                'apparent_temperature_max',
-                                'precipitation_probability_max',
-                                'precipitation_sum',
-                                'wind_speed_10m_max',
-                                'wind_speed_10m_min',
-                                'wind_direction_10m_dominant',
-                                'wind_gusts_10m_max',
-                                'weather_code'
-                            ],
-                            'forecast_days': 14,
-                        });
-                        const urlWeather = 'https://api.open-meteo.com/v1/forecast?' + weatherParams.toString();
-
-                        console.log(res.results[0].latitude + ' ' + res.results[0].longitude);
-                        console.log(res);
-
-                        fetch(urlWeather, {
-                            method: 'GET'
-                        })
-                            .then(response => {
-                                response.json().then(res => {
-                                    console.log(res);
-                                    this.weather = res.daily;
-                                    this.hasData = true;
-                                    let element = document.querySelector('.container');
-                                    element.classList.remove('hidden');
-                                    this.createNewSvg();
-                                });
-                            });
-
-                    })
-                        .catch(err => {
-                            console.error(err);
-                        });
+                const weatherParams = new URLSearchParams({
+                    'latitude': locationData[0].latitude,
+                    'longitude': locationData[0].longitude,
+                    'daily': [
+                        'temperature_2m_max',
+                        'apparent_temperature_max',
+                        'precipitation_probability_max',
+                        'precipitation_sum',
+                        'wind_speed_10m_max',
+                        'wind_speed_10m_min',
+                        'wind_direction_10m_dominant',
+                        'wind_gusts_10m_max',
+                        'weather_code'
+                    ],
+                    'forecast_days': 14,
                 });
+                api.fetchData(weatherParams).then(weatherData => {
+                    console.log( weatherData)
+                    this.weather = weatherData;
+                    this.hasData = true;
+                    let element = document.querySelector('.container');
+                    element.classList.remove('hidden');
+                    this.createNewSvg();
+                });
+            });
+
+            this.searchPerformed = true;
         },
         displayData(weatherData) {
 
