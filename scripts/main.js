@@ -25,7 +25,11 @@ Vue.createApp({
             //scroll left
             console.log('clicked on Right Scroll!')
             let element = document.querySelector('.container');
-            element.scrollLeft -= element.scrollWidth / 4;
+            element.scrollTo({
+                top: 0,
+                left: element.scrollLeft - element.scrollWidth / 4,
+                behavior: "smooth",
+              });
 
             this.hasScrolledRight = true;
         },
@@ -33,7 +37,11 @@ Vue.createApp({
             //scroll left
             console.log('clicked on Right Scroll!')
             let element = document.querySelector('.container');
-            element.scrollLeft += element.scrollWidth / 4;
+            element.scrollTo({
+                top: 0,
+                left: element.scrollLeft + element.scrollWidth / 4,
+                behavior: "smooth",
+              });
 
             this.hasScrolledRight = true;
         },
@@ -178,20 +186,24 @@ Vue.createApp({
 
         },
       
-
         selectOption(option) {
             let dailyContainer = document.querySelector('.container');
+            let hourlyPresentation = document.querySelector('#hourlyPresentation');
             dailyContainer.scrollLeft = 0;
             if(option === 'hourly'){
                 dailyContainer.classList.add('hidden');
+                hourlyPresentation.classList.remove('hidden');
+                
             }
             else if(option === 'week'){
                 this.selectedOption = 7
                 dailyContainer.classList.remove('hidden');
+                hourlyPresentation.classList.add('hidden');
             }
             else{
                 this.selectedOption = 14;
                 dailyContainer.classList.remove('hidden');
+                hourlyPresentation.classList.add('hidden');
             }
         },
         weatherOneDay(date){
