@@ -8,22 +8,11 @@ Vue.createApp({
             searchLocation: '',
             location: '',
             country: '',
-            weather: [],
-            /*{
-            temperature_2m: "",
-            relative_humidity_2m: "",
-            apparent_temperature: "",
-            precipitation_probability: "",
-            precipitation: "",
-            wind_speed_10m: "",
-            wind_direction_10m: "",
-            wind_gusts_10m: "",
-        }],*/
-            weatherTestTable: [],
+            weather: {},
+            selectedOption: 14,
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
-            searchPerformed: false
         };  
     },
 
@@ -96,7 +85,69 @@ Vue.createApp({
 
             return day + suffix + ' of ' + monthNames[new Date(date).getMonth()];
         },
-
+        getWeatherIcons(weatherCode){
+            switch(weatherCode) {
+                case 0:
+                    return '/WeatherApp/resources/weatherIcons/useful/clear-day.svg';
+                case 1:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day.svg';
+                case 2:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day.svg';
+                case 3:
+                    return '/WeatherApp/resources/weatherIcons/useful/overcast-day.svg';
+                case 45:
+                    return '/WeatherApp/resources/weatherIcons/useful/fog.svg';
+                case 48:
+                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg';
+                case 51:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-drizzle.svg';
+                case 53:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-drizzle.svg';
+                case 55:
+                    return '/WeatherApp/resources/weatherIcons/useful/drizzle.svg';
+                case 56:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; 
+                case 57:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; 
+                case 61:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-rain.svg'; 
+                case 63:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day.svg';
+                case 65:
+                    return '/WeatherApp/resources/weatherIcons/useful/rain.svg'; 
+                case 66:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; // För molniga nätter med måne
+                case 67:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; // För molniga dagar eller nätter utan sol eller måne
+                case 71:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-snow.svg'; // För molniga dagar eller nätter utan sol eller måne
+                case 73:
+                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg'; // För övercasta dagar eller nätter utan sol eller måne
+                case 75:
+                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg'; // För övercasta dagar eller nätter utan sol eller måne
+                case 77:
+                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg';
+                case 80:
+                    return '/WeatherApp/resources/weatherIcons/useful/drizzle.svg'; // Sökväg för väderkod 20
+                case 81:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-rain.svg'; // Sökväg för väderkod 21
+                case 82:
+                    return '/WeatherApp/resources/weatherIcons/useful/rain.svg'; // Sökväg för väderkod 22
+                case 85:
+                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-snow.svg'; // Sökväg för väderkod 23
+                case 86:
+                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg'; // Sökväg för väderkod 24
+                case 95:
+                    return '/WeatherApp/resources/weatherIcons/useful/thunderstorm-day-snow.svg'; // Sökväg för väderkod 25
+                case 96:
+                    return '/WeatherApp/resources/weatherIcons/useful/thunderstorm-day-snow.svg'; // Sökväg för väderkod 26
+                case 99:
+                    return '/WeatherApp/resources/weatherIcons/useful/thunderstorms-snow.svg'; // Sökväg för väderkod 27
+                default:
+                    return '/WeatherApp/resources/weatherIcons/not-available.svg'; // Om ingen matchning hittas
+            }
+            
+        },
         fetchData() {
             const geocodingParams = new URLSearchParams({
                 'name': this.searchLocation,
@@ -109,44 +160,70 @@ Vue.createApp({
                 this.location = locationData[0].name;
                 this.country = locationData[0].country;
 
-                const weatherParams = new URLSearchParams({
-                    'latitude': locationData[0].latitude,
-                    'longitude': locationData[0].longitude,
-                    'daily': [
-                        'temperature_2m_max',
-                        'apparent_temperature_max',
-                        'precipitation_probability_max',
-                        'precipitation_sum',
-                        'wind_speed_10m_max',
-                        'wind_speed_10m_min',
-                        'wind_direction_10m_dominant',
-                        'wind_gusts_10m_max',
-                        'weather_code'
-                    ],
-                    'forecast_days': 14,
-                });
-                api.fetchData(weatherParams).then(weatherData => {
+                
+                api.fetchData(
+                        locationData[0].latitude, locationData[0].longitude
+                    ).then(weatherData => {
+                        console.log( 'weatherData')
                     console.log( weatherData)
                     this.weather = weatherData;
                     this.hasData = true;
                     let element = document.querySelector('.container');
+                    element.scrollLeft = 0;
                     element.classList.remove('hidden');
-                    this.createNewSvg();
+                   // this.createNewSvg();
                 });
             });
 
-            this.searchPerformed = true;
+
         },
-        displayData(weatherData) {
+      
 
-            for (let i = 0; i < weatherData.time.length; i++) {
-                this.weatherTestTable.push({ time: weatherData.time[i], temp: weatherData.temperature_2m_max[i] });
-
+        selectOption(option) {
+            let dailyContainer = document.querySelector('.container');
+            dailyContainer.scrollLeft = 0;
+            if(option === 'hourly'){
+                dailyContainer.classList.add('hidden');
             }
-            console.log(this.weatherTestTable);
+            else if(option === 'week'){
+                this.selectedOption = 7
+                dailyContainer.classList.remove('hidden');
+            }
+            else{
+                this.selectedOption = 14;
+                dailyContainer.classList.remove('hidden');
+            }
         },
+        weatherOneDay(date){
+            if (this.hasData){
+                let daily = [];
+                for(let i = 0; i < this.weather.hourly.length; i++){
+                    let dateTime = this.weather.hourly[i].time.split('T');
+                    
+                    if (Date.parse(dateTime[0]) ===  Date.parse(date)){
+                        daily.push(Object.assign({}, this.weather.hourly[i]))
+                        daily[daily.length - 1].time = dateTime[1]
+                    }
+                    else if (Date.parse(dateTime[0]) >  Date.parse(date)){
+                        break;
+                    }
+                }
+                return daily;
+            }
+        },
+        getAvailableDates(){
+            if(this.hasData){
+            let dates = this.weather.hourly.map(date => date.time.split('T')[0]);
+            dates = dates.filter((date, index, array) => array.indexOf(date) === index);
+            return dates;
+            }
+        }
     },
     computed: {
+        filteredForecastData() {
+            return this.weather.daily.slice(0, this.selectedOption ); // Filter the forecast data based on the selected option
+
+        },
 
         style(value) {
             value = value + 180;
@@ -166,6 +243,8 @@ Vue.createApp({
         }
     },
     mounted() {
+
+       // this.fetchData();
         // Call the function to create SVG when the component is mounted
         //this.createNewSvg();
     }
