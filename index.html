@@ -2,7 +2,7 @@
 <html lang="sv">
 
 <head>
-    <title>WeatherApp</title>
+    <title>weather.daily[index]App</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,62 +24,90 @@
             <button type="submit">🔍</button>
         </form>
 
-    <ul id="presentOptions" v-if="searchPerformed">
-        <li>
-            <button @click="selectOption('hourly')" :disabled="selectedOption === 'hourly'">Daily Forecast</button>
-        </li>
-        <li>
-            <button @click="selectOption('7-day')" :disabled="selectedOption === '7-day'">7-Day Forecast</button>
-        </li>
-        <li>
-            <button @click="selectOption('14-day')" :disabled="selectedOption === '14-day'">14-Day Forecast</button>
-        </li>
-
-    </ul>
-
+        <ul id="presentOptions" v-if="hasData">
+            <li>
+                <button @click="selectOption('hourly')">Daily Forecast</button>
+            </li>
+            <li>
+                <button @click="selectOption('week')">7-Day Forecast</button>
+            </li>
+            <li>
+                <button @click="selectOption('two-weeks')">14-Day Forecast</button>
+            </li>
+    
+        </ul>
         <div class="container hidden" v-on:hover="scrollTranslate"  @scroll="handleScroll" ref="scrollContainer">
+
+
             <div id="scroll-left" @click="scrollLeft" v-show="showLeftScroll">
-                <img src="/WeatherApp/css/resources/icons/reshot-icon-left-arrow-button-RF5DMQX396-95d98.svg" alt="">
+                <img src="/weatherApp/css/resources/icons/reshot-icon-left-arrow-button-RF5DMQX396-95d98.svg" alt="">
             </div>
-            <!--Weather display template-->
-            <article class="overview" v-if="hasData" v-for="(value, index) in weather.time">
+            <!--weather.daily[index] display template-->
+            <article class="overview" v-if="hasData" v-for="(value, index) in filteredForecastData">
                 <section class="dateTime">
                     <h3 class="itemDate">
-                        <time v-if="weather.time[index]" :datetime="weather.time[index]">{{
-                            getDayName(weather.time[index]) }}</time>
+                        <time v-if="value.time" :datetime="value.time">{{
+                            getDayName(value.time) }}</time>
                         </h3>
-                        <p>{{getMonthName(weather.time[index])}}</p>
+                        <p>{{getMonthName(value.time)}}</p>
                 </section>
                 <section class="showLocation gray-last-child">
                     <p>{{ location }}</p>
                     <p class="">{{ country }}</p>
                 </section>
-                <section class="temperature gray-last-child">
-                    <p>{{ weather.temperature_2m_max[index] }}°C</p>
-                    <p>Feels like: {{ weather.apparent_temperature_max[index] }}°C</p>
+                <section class="temp gray-last-child">
+                    <p class="temperature">{{ value.temp }}°C</p>
+                    <p>Feels like: {{ value.apparent_temp }}°C</p>
+                    <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons">
                 </section>
                 <section class="showPrecipitation gray-last-child">
-                    <p>{{ weather.precipitation_sum[index] }} mm </p>
-                    <p> {{ weather.precipitation_probability_max[index] }} %</p>
+                    <p>{{ value.precipitation }} mm </p>
+                    <p> {{ value.precipitation_probability }} %</p>
                 </section>
                 <section class="showWindSpeed gray-last-child">
                     <p>
                         <span class="windArrow"
-                            :style="{ display: 'inline-block', transform: 'rotate(' + weather.wind_direction_10m_dominant[index] + 'deg)' }">↓</span>
-                        {{ (weather.wind_speed_10m_max[index] / 3.6).toFixed(2) }} m/s
+                            :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
+                        {{ value.wind_speed }} m/s
                     </p>
-                    <p>{{ (weather.wind_gusts_10m_max[index] / 3.6).toFixed(2) }}m/s </p>
+                    <p>{{ value.wind_gusts }}m/s </p>
                 </section>
             </article>
 
             <div id="scroll-right" @click="scrollRight"  v-show="showRightScroll">
-                <img src="/WeatherApp/css/resources/icons/reshot-icon-right-arrow-button-YAB8GEM7SD-c5f61.svg" alt="">
+                <img src="/weatherApp/css/resources/icons/reshot-icon-right-arrow-button-YAB8GEM7SD-c5f61.svg" alt="">
             </div>
+        </div>
+        <div id="hourlyPresentation">
+            <table v-for="(date, index) in getAvailableDates()" :id="value">
+                <tr>
+                    <th>{{date}}</th>
+                    <th></th>
+                    <th>Temp</th>
+                    <th>Feels like</th>
+                    <th>Precipitation <br>
+                        probability</th>
+                    <th>mm</th>
+                    <th>m/s (Gusts)</th>
+                </tr>
+                <tr v-for="(value, index) in weatherOneDay(date)">
+                    
+                    <td> {{ value.time }} </td>
+                    <td> <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons"> </td>
+                    <td> {{ value.temp }}° </td>
+                    <td> {{ value.apparent_temp }}° </td>
+                    <td> {{ value.precipitation_probability }} % </td>
+                    <td> {{ value.precipitation }} </td>
+                    <td><span class="windArrow"
+                        :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
+                        {{ value.wind_speed }} ({{ value.wind_gusts }}) </td>
+                </tr>
+            </table>
         </div>
     </div>
     <div id="svg">
 
     </div>
-</body>
+
 
 </html>
