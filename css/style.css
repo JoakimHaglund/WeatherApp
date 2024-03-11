@@ -7,6 +7,7 @@ Globala regler
 html {
 	/*Bra storlek för att använda REM då 62.5% av 16px är 10*/
 	font-size: 62.5%;
+	scroll-behavior: smooth;
 }
 
 * {
@@ -113,7 +114,7 @@ Andra regler
 	min-width: 120px;
 	white-space: nowrap;
 	margin-right: 20px;
-	background-color: rgb(238, 238, 238);
+	background-color: rgb(255, 255, 255);
 }
 
 .overview section {
@@ -122,6 +123,16 @@ Andra regler
 
 .overview section {
 	display: grid;
+}
+
+.overview section .temperature {
+	font-weight: bolder;
+	font-size: 2rem;
+}
+
+.weatherIcons {
+	width: 90px;
+	margin: auto;
 }
 
 .container {
@@ -192,6 +203,35 @@ Andra regler
 .hidden {
 	display: none;
 }
+
+#hourlyPresentation{
+	display: flex;
+	flex-wrap: wrap;
+	flex: 0 0 auto;
+	flex-direction: column;
+	border: #000 1px outset;
+	border-radius: 6px;
+	border-color: #073463;
+	text-align: center;
+	min-width: 120px;
+	white-space: nowrap;	
+	margin: 1rem;
+	font-weight: bold;
+}
+
+table, td {
+	border-radius: 3px;
+	padding: 1rem;
+	box-shadow: #073463;
+	margin: 2rem;
+	background-color:#ffeead;
+}
+
+th, td {
+	border-bottom: 1px solid #5268d9;
+  }
+
+  th:hover {background-color: coral;}
 
 svg {
 	width: 600px;
