@@ -1,6 +1,42 @@
 async function callApi() {
 
 }
+export function fullCallParams(latitude, longitude) {
+    return new URLSearchParams({
+        'latitude': latitude,
+        'longitude': longitude,
+        'hourly': [
+            'temperature_2m',
+            'apparent_temperature',
+            'precipitation_probability',
+            'precipitation',
+            'wind_speed_10m',
+            'wind_direction_10m',
+            'wind_gusts_10m',
+            'weather_code'
+        ],
+        'daily': [
+            'temperature_2m_max',
+            'apparent_temperature_max',
+            'precipitation_probability_max',
+            'precipitation_sum',
+            'wind_speed_10m_max',
+            'wind_speed_10m_min',
+            'wind_direction_10m_dominant',
+            'wind_gusts_10m_max',
+            'weather_code'
+        ],
+        'forecast_days': 14,
+    }).toString();
+}
+export function dailyCallParams(latitude, longitude) {
+    return new URLSearchParams({
+        'latitude': latitude,
+        'longitude': longitude,
+
+        'forecast_days': 14,
+    }).toString();
+}
 
 export async function fetchLocationInfo(location) {
     const geocodingParams = new URLSearchParams({
@@ -39,8 +75,8 @@ export async function fetchLocationInfo(location) {
     }
 }
 
-export async function fetchData(weatherParams) {
-    const urlWeather = 'https://api.open-meteo.com/v1/forecast?' + weatherParams.toString();
+export async function fetchData(latitude, longitude) {
+    const urlWeather = 'https://api.open-meteo.com/v1/forecast?' + fullCallParams(latitude, longitude);
 
     try {
         const response = await fetch(urlWeather, {
@@ -52,19 +88,47 @@ export async function fetchData(weatherParams) {
         }
 
         const data = await response.json();
-        console.log(data);
-        const weather = data.daily;
-        return weather;
+        console.log(data);   
+      
+        return handleData(data); 
     } catch (err) {
         console.error(err);
         throw err; // Re-throw the error to be handled by the caller if needed
     }
 }
-async function displayData(weatherData) {
-
-    for (let i = 0; i < weatherData.time.length; i++) {
-        this.weatherTestTable.push({ time: weatherData.time[i], temp: weatherData.temperature_2m_max[i] });
-
+function handleData(weatherData) {
+    let weather = {
+        daily: [],
+        hourly: []
+    };
+    for (let i = 0; i < weatherData.hourly.time.length; i++) {
+        let timestamp = weatherData.hourly.time[i].split('T');
+        weather.hourly.date = timestamp[0]
+        weather.hourly.push({
+            time: weatherData.hourly.time[i],
+            temp: weatherData.hourly.temperature_2m[i],
+            apparent_temp: weatherData.hourly.apparent_temperature[i],
+            precipitation_probability: weatherData.hourly.precipitation_probability[i],
+            precipitation: weatherData.hourly.precipitation[i],
+            wind_speed: (weatherData.hourly.wind_speed_10m[i] / 3.6).toFixed(2),
+            wind_direction: weatherData.hourly.wind_direction_10m[i],
+            wind_gusts: (weatherData.hourly.wind_gusts_10m[i] / 3.6).toFixed(2),
+            weather_code: weatherData.hourly.weather_code[i],
+        });
     }
-    console.log(this.weatherTestTable);
+    for (let i = 0; i < weatherData.daily.time.length; i++) {
+        weather.daily.push({
+            time: weatherData.daily.time[i],
+            temp: weatherData.daily.temperature_2m_max[i],
+            apparent_temp: weatherData.daily.apparent_temperature_max[i],
+            precipitation_probability: weatherData.daily.precipitation_probability_max[i],
+            precipitation: weatherData.daily.precipitation_sum[i],
+            wind_speed: (weatherData.daily.wind_speed_10m_max[i] / 3.6).toFixed(2),
+            wind_speed_min: (weatherData.daily.wind_speed_10m_min[i] / 3.6).toFixed(2),
+            wind_direction: weatherData.daily.wind_direction_10m_dominant[i],
+            wind_gusts: (weatherData.daily.wind_gusts_10m_max[i] / 3.6).toFixed(2),
+            weather_code: weatherData.daily.weather_code[i],
+        });
+    }
+    return weather;
 }
