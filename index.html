@@ -6,6 +6,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script type="module" src="scripts/main.js" defer></script>
@@ -13,7 +17,7 @@
 
 <body>
     <header>
-        <h1>Jocke & Sigges formidabla väderapplikation!</h1>
+        <h1>Haglund Malm & Siggelin Weather Forecast</h1>
     </header>
     <div id="app">
         <form @submit.prevent="fetchData">
@@ -34,13 +38,13 @@
             <li>
                 <button @click="selectOption('two-weeks')">14-Day Forecast</button>
             </li>
-    
+
         </ul>
-        <div class="container hidden" v-on:hover="scrollTranslate"  @scroll="handleScroll" ref="scrollContainer">
+        <div class="container hidden" v-on:hover="scrollTranslate" @scroll="handleScroll" ref="scrollContainer">
 
 
-            <div id="scroll-left" @click="scrollLeft" v-show="showLeftScroll">
-                <img src="/weatherApp/css/resources/icons/reshot-icon-left-arrow-button-RF5DMQX396-95d98.svg" alt="">
+            <div id="scroll-left" class="scroll-buttons" @click="scrollLeft" v-show="showLeftScroll">
+                <img src="resources/double-arrow-left-icon.svg" alt="">
             </div>
             <!--weather.daily[index] display template-->
             <article class="overview" v-if="hasData" v-for="(value, index) in filteredForecastData">
@@ -48,8 +52,8 @@
                     <h3 class="itemDate">
                         <time v-if="value.time" :datetime="value.time">{{
                             getDayName(value.time) }}</time>
-                        </h3>
-                        <p>{{getMonthName(value.time)}}</p>
+                    </h3>
+                    <p>{{getMonthName(value.time)}}</p>
                 </section>
                 <section class="showLocation gray-last-child">
                     <p>{{ location }}</p>
@@ -74,14 +78,14 @@
                 </section>
             </article>
 
-            <div id="scroll-right" @click="scrollRight"  v-show="showRightScroll">
-                <img src="/weatherApp/css/resources/icons/reshot-icon-right-arrow-button-YAB8GEM7SD-c5f61.svg" alt="">
+            <div id="scroll-right" class="scroll-buttons" @click="scrollRight" v-show="showRightScroll">
+                <img src="resources/double-arrow-right-icon.svg" alt="">
             </div>
         </div>
-        <div id="hourlyPresentation">
+        <div id="hourlyPresentation" class="hidden">
             <table v-for="(date, index) in getAvailableDates()" :id="value">
                 <tr>
-                    <th>{{date}}</th>
+                    <th><time :datetime="date">{{getMonthName(date)}}</time></th>
                     <th></th>
                     <th>Temp</th>
                     <th>Feels like</th>
@@ -91,7 +95,7 @@
                     <th>m/s (Gusts)</th>
                 </tr>
                 <tr v-for="(value, index) in weatherOneDay(date)">
-                    
+
                     <td> {{ value.time }} </td>
                     <td> <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons"> </td>
                     <td> {{ value.temp }}° </td>
@@ -99,7 +103,7 @@
                     <td> {{ value.precipitation_probability }} % </td>
                     <td> {{ value.precipitation }} </td>
                     <td><span class="windArrow"
-                        :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
+                            :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
                         {{ value.wind_speed }} ({{ value.wind_gusts }}) </td>
                 </tr>
             </table>

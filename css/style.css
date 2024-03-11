@@ -12,7 +12,7 @@ html {
 
 * {
 	font-size: 1.6rem;
-	font-family: 'Roboto', Arial, Helvetica, sans-serif;
+	font-family: "Montserrat",'Roboto', Arial, Helvetica, sans-serif;
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -26,9 +26,10 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	/*outline: 1px solid red;*/
-	background-color: #59f59a;
+	background-color: #a9d8f7;
 	flex-direction: column;
 	align-items: center;
+	/*background-image: url(../resources/fire.jpg);*/
 }
 
 header {
@@ -37,7 +38,7 @@ header {
 }
 
 h1 {
-
+	text-transform: uppercase;
 	font-size: 6rem;
 }
 
@@ -119,9 +120,6 @@ Andra regler
 
 .overview section {
 	margin: 10px;
-}
-
-.overview section {
 	display: grid;
 }
 
@@ -169,39 +167,34 @@ Andra regler
 	font-weight: bold;
 	font-size: 1.7rem !important;
 }
-
-#scroll-left {
-	background: linear-gradient(to right,
-	rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+.scroll-buttons{
 	position: sticky;
-	left: 0;
-	height: 294.5px;
 	border: none;
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: stretch;
 	min-width: 120px !important;
 	align-content: center;
 	cursor: pointer;
+}
+.scroll-buttons img{
+	width: 20px;
+
+}
+#scroll-left {
+	background: linear-gradient(to right,
+	rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+	left: 0;
 }
 
 #scroll-right {
 	background: linear-gradient(to left,
 	rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
-	position: sticky;
 	right: 0;
-	height: 294.5px;
-	border: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-width: 120px !important;
-	align-content: center;
-	cursor: pointer;
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 #hourlyPresentation{
@@ -209,7 +202,6 @@ Andra regler
 	flex-wrap: wrap;
 	flex: 0 0 auto;
 	flex-direction: column;
-	border: #000 1px outset;
 	border-radius: 6px;
 	border-color: #073463;
 	text-align: center;
@@ -219,19 +211,28 @@ Andra regler
 	font-weight: bold;
 }
 
-table, td {
+table {
 	border-radius: 3px;
-	padding: 1rem;
 	box-shadow: #073463;
 	margin: 2rem;
-	background-color:#ffeead;
+	border-collapse: collapse; 
+	background-color: white;
+
 }
 
-th, td {
-	border-bottom: 1px solid #5268d9;
-  }
 
-  th:hover {background-color: coral;}
+
+tr {
+	border-bottom: 1px dotted #5268d9;
+}
+
+th:hover {
+	background-color: coral;
+}
+tr:nth-child(odd){
+	background-color: rgb(223, 221, 221);
+}
+
 
 svg {
 	width: 600px;
