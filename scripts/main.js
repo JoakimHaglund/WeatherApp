@@ -164,7 +164,7 @@ Vue.createApp({
                 'format': 'json'
             });
             api.fetchLocationInfo(this.searchLocation).then(locationData => {
-                console.log( locationData)
+                console.log(locationData)
                 this.location = locationData[0].name;
                 this.country = locationData[0].country;
 

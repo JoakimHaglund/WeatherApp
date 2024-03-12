@@ -106,27 +106,27 @@ function handleData(weatherData) {
         weather.hourly.date = timestamp[0]
         weather.hourly.push({
             time: weatherData.hourly.time[i],
-            temp: weatherData.hourly.temperature_2m[i],
-            apparent_temp: weatherData.hourly.apparent_temperature[i],
+            temp: Math.round(weatherData.hourly.temperature_2m[i]),
+            apparent_temp: Math.round(weatherData.hourly.apparent_temperature[i]),
             precipitation_probability: weatherData.hourly.precipitation_probability[i],
             precipitation: weatherData.hourly.precipitation[i],
-            wind_speed: (weatherData.hourly.wind_speed_10m[i] / 3.6).toFixed(2),
+            wind_speed: Math.round((weatherData.hourly.wind_speed_10m[i] / 3.6).toFixed(2)),
             wind_direction: weatherData.hourly.wind_direction_10m[i],
-            wind_gusts: (weatherData.hourly.wind_gusts_10m[i] / 3.6).toFixed(2),
+            wind_gusts: Math.round((weatherData.hourly.wind_gusts_10m[i] / 3.6).toFixed(2)),
             weather_code: weatherData.hourly.weather_code[i],
         });
     }
     for (let i = 0; i < weatherData.daily.time.length; i++) {
         weather.daily.push({
             time: weatherData.daily.time[i],
-            temp: weatherData.daily.temperature_2m_max[i],
-            apparent_temp: weatherData.daily.apparent_temperature_max[i],
+            temp: Math.round(weatherData.daily.temperature_2m_max[i]),
+            apparent_temp: Math.round(weatherData.daily.apparent_temperature_max[i]),
             precipitation_probability: weatherData.daily.precipitation_probability_max[i],
             precipitation: weatherData.daily.precipitation_sum[i],
-            wind_speed: (weatherData.daily.wind_speed_10m_max[i] / 3.6).toFixed(2),
-            wind_speed_min: (weatherData.daily.wind_speed_10m_min[i] / 3.6).toFixed(2),
+            wind_speed: Math.round((weatherData.daily.wind_speed_10m_max[i] / 3.6).toFixed(2)),
+            wind_speed_min: Math.round((weatherData.daily.wind_speed_10m_min[i] / 3.6).toFixed(2)),
             wind_direction: weatherData.daily.wind_direction_10m_dominant[i],
-            wind_gusts: (weatherData.daily.wind_gusts_10m_max[i] / 3.6).toFixed(2),
+            wind_gusts: Math.round((weatherData.daily.wind_gusts_10m_max[i] / 3.6).toFixed(2)),
             weather_code: weatherData.daily.weather_code[i],
         });
     }

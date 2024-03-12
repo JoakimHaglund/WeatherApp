@@ -20,7 +20,6 @@ html {
 
 body {
 	margin: auto;
-	padding: 20px;
 	max-width: 1080px;
 	display: flex;
 	flex-wrap: wrap;
@@ -269,11 +268,13 @@ svg {
 
 @media screen and (max-width: 768px) {
 	body {
+		display: flex;
 		flex-wrap: nowrap;
 	}
 
 	.container {
 		display: block;
+		width: 100%;
 	}
 
 	.overview {
@@ -286,6 +287,19 @@ svg {
 
 	}
 
+	#hourlyPresentation{
+		align-items: center;
+	}
+
+	table {
+		max-width: 100%;
+	}
+
+	th, td {
+		padding: 8px;
+		font-size: 14px;
+	}
+
 	#scroll-left,
 	#scroll-right {
 		display: none;
@@ -296,7 +310,7 @@ svg {
 	}
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 550px) {
 
 	body {
 		flex-wrap: nowrap;
@@ -305,14 +319,34 @@ svg {
 	.container {
 		display: block;
 	}
+	.dateTime{grid-area: dateTime;}
+	.temp{grid-area: temp;}
+	.weatherIcon{
+		grid-area: weatherIcon;
+	}
+	.weatherIcons{
+		width: 50px;
+	}
+	.showPrecipitation{grid-area: precipitation;}
+	.showWindSpeed{grid-area: windSpeed;}
 
 	.overview {
-		flex-direction: row;
-		overflow-x: auto;
+		display: grid;
+		grid-template-areas: 
+		'dateTime dateTime dateTime dateTime'
+		' weatherIcon  temp windSpeed precipitation' 
+		;
+		justify-content: center;
+		align-items: center;
 		white-space: nowrap;
 		max-width: 550px;
 		padding: 0.5rem;
-		flex-wrap: nowrap;
+		gap: 1.6rem;
+	}
+
+	.overview section{
+		display: block;
+		margin: 0;
 	}
 
 	#scroll-left,
@@ -324,4 +358,17 @@ svg {
 		font-size: 3rem;
 	}
 
+	#hourlyPresentation {
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    table {
+        max-width: 100%; 
+    }
+
+    th, td {
+        padding: 6px; 
+        font-size: 12px;
+    }
 }

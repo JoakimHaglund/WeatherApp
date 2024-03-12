@@ -40,9 +40,11 @@
             </li>
 
         </ul>
+        <div class="showLocation gray-last-child">
+            <p>{{ location }}</p>
+            <p class="">{{ country }}</p>
+        </div>
         <div class="container hidden" v-on:hover="scrollTranslate" @scroll="handleScroll" ref="scrollContainer">
-
-
             <div id="scroll-left" class="scroll-buttons" @click="scrollLeft" v-show="showLeftScroll">
                 <img src="resources/double-arrow-left-icon.svg" alt="">
             </div>
@@ -55,13 +57,12 @@
                     </h3>
                     <p>{{getMonthName(value.time)}}</p>
                 </section>
-                <section class="showLocation gray-last-child">
-                    <p>{{ location }}</p>
-                    <p class="">{{ country }}</p>
-                </section>
+                
                 <section class="temp gray-last-child">
                     <p class="temperature">{{ value.temp }}°C</p>
                     <p>Feels like: {{ value.apparent_temp }}°C</p>
+                </section>
+                <section class="weatherIcon">
                     <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons">
                 </section>
                 <section class="showPrecipitation gray-last-child">
@@ -89,8 +90,7 @@
                     <th></th>
                     <th>Temp</th>
                     <th>Feels like</th>
-                    <th>Precipitation <br>
-                        probability</th>
+                 
                     <th>mm</th>
                     <th>m/s (Gusts)</th>
                 </tr>
@@ -100,8 +100,8 @@
                     <td> <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons"> </td>
                     <td> {{ value.temp }}° </td>
                     <td> {{ value.apparent_temp }}° </td>
-                    <td> {{ value.precipitation_probability }} % </td>
-                    <td> {{ value.precipitation }} </td>
+                  
+                    <td> {{ value.precipitation }} <br> {{ value.precipitation_probability }} %</td>
                     <td><span class="windArrow"
                             :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
                         {{ value.wind_speed }} ({{ value.wind_gusts }}) </td>
