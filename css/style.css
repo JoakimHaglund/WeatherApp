@@ -266,7 +266,7 @@ svg {
 	margin-right: 60%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 968px) {
 	body {
 		display: flex;
 		flex-wrap: nowrap;
@@ -310,7 +310,7 @@ svg {
 	}
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 850px) {
 
 	body {
 		flex-wrap: nowrap;
