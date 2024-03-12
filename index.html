@@ -2,14 +2,14 @@
 <html lang="sv">
 
 <head>
-    <title>weather.daily[index]App</title>
+    <title>HMS Weather Forecast</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/gif" href="resources/tenor.gif">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script type="module" src="scripts/main.js" defer></script>
@@ -30,13 +30,13 @@
 
         <ul id="presentOptions" v-if="hasData">
             <li>
-                <button @click="selectOption('hourly')">Daily Forecast</button>
+                <button @click="selectOption('hourly')" :disabled="selectedOption == 1">Daily Forecast</button>
             </li>
             <li>
-                <button @click="selectOption('week')">7-Day Forecast</button>
+                <button @click="selectOption('week')" :disabled="selectedOption == 7">7-Day Forecast</button>
             </li>
             <li>
-                <button @click="selectOption('two-weeks')">14-Day Forecast</button>
+                <button @click="selectOption('two-weeks')" :disabled="selectedOption == 14">14-Day Forecast</button>
             </li>
 
         </ul>

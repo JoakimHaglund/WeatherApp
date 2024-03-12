@@ -62,7 +62,7 @@ Vue.createApp({
         handleScroll() {
             const scrollContainer = this.$refs.scrollContainer;
             const isEndOfScroll = scrollContainer.scrollLeft + scrollContainer.clientWidth  >= scrollContainer.scrollWidth - 120;
-            const isStartOfScroll = scrollContainer.scrollLeft === 0;
+            const isStartOfScroll = scrollContainer.scrollLeft <= 120;
 
             this.showRightScroll = !isEndOfScroll;
 
@@ -191,12 +191,13 @@ Vue.createApp({
             let hourlyPresentation = document.querySelector('#hourlyPresentation');
             dailyContainer.scrollLeft = 0;
             if(option === 'hourly'){
+                this.selectedOption = 1;
                 dailyContainer.classList.add('hidden');
                 hourlyPresentation.classList.remove('hidden');
                 
             }
             else if(option === 'week'){
-                this.selectedOption = 7
+                this.selectedOption = 7;
                 dailyContainer.classList.remove('hidden');
                 hourlyPresentation.classList.add('hidden');
             }
@@ -211,8 +212,9 @@ Vue.createApp({
                 let daily = [];
                 for(let i = 0; i < this.weather.hourly.length; i++){
                     let dateTime = this.weather.hourly[i].time.split('T');
-                    
-                    if (Date.parse(dateTime[0]) ===  Date.parse(date)){
+                    let selectedDate = Date.parse(dateTime[0]) ===  Date.parse(date);
+                    let notPassedHours = Date.now() <= Date.parse(this.weather.hourly[i].time);
+                    if (selectedDate && notPassedHours){
                         daily.push(Object.assign({}, this.weather.hourly[i]))
                         daily[daily.length - 1].time = dateTime[1]
                     }
