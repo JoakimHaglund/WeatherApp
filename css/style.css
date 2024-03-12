@@ -164,6 +164,10 @@ table .weatherIcons {
 	display: none;
 }
 
+.showLocation{
+	font-weight: 600;
+	margin-bottom: 0.5rem;
+}
 .gray-last-child p:last-child {
 	font-size: 0.8em !important;
 	color: gray;
@@ -276,14 +280,17 @@ svg {
 		display: block;
 		width: 100%;
 	}
-
+	
 	.overview {
+		min-width: 99%;
 		flex-direction: row;
 		overflow-x: auto;
 		white-space: nowrap;
 		max-width: 550px;
 		margin: 0.5rem;
 		flex-wrap: nowrap;
+		justify-content: space-around;
+		margin: 0.5rem;
 
 	}
 
@@ -318,6 +325,7 @@ svg {
 
 	.container {
 		display: block;
+		
 	}
 	.dateTime{grid-area: dateTime;}
 	.temp{grid-area: temp;}
@@ -331,12 +339,13 @@ svg {
 	.showWindSpeed{grid-area: windSpeed;}
 
 	.overview {
+		min-width: 99%;
 		display: grid;
 		grid-template-areas: 
 		'dateTime dateTime dateTime dateTime'
 		' weatherIcon  temp windSpeed precipitation' 
 		;
-		justify-content: center;
+		justify-content: space-around;
 		align-items: center;
 		white-space: nowrap;
 		max-width: 550px;
