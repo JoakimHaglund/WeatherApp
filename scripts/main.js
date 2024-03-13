@@ -13,6 +13,68 @@ Vue.createApp({
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
+            weatherDayIcons:  {
+                0: '/WeatherApp/resources/weatherIcons/clear-day.svg',
+                1: '/WeatherApp/resources/weatherIcons/partly-cloudy-day.svg',
+                2: '/WeatherApp/resources/weatherIcons/partly-cloudy-day.svg',
+                3: '/WeatherApp/resources/weatherIcons/overcast-day.svg',
+                45: '/WeatherApp/resources/weatherIcons/fog.svg',
+                48: '/WeatherApp/resources/weatherIcons/snow.svg',
+                51: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-drizzle.svg',
+                53: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-drizzle.svg',
+                55: '/WeatherApp/resources/weatherIcons/drizzle.svg',
+                56: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-sleet.svg',
+                57: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-sleet.svg',
+                61: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-rain.svg',
+                63: '/WeatherApp/resources/weatherIcons/partly-cloudy-day.svg',
+                65: '/WeatherApp/resources/weatherIcons/rain.svg',
+                66: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-sleet.svg',
+                67: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-sleet.svg',
+                71: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-snow.svg',
+                73: '/WeatherApp/resources/weatherIcons/snow.svg',
+                75: '/WeatherApp/resources/weatherIcons/snow.svg',
+                77: '/WeatherApp/resources/weatherIcons/snow.svg',
+                80: '/WeatherApp/resources/weatherIcons/drizzle.svg',
+                81: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-rain.svg',
+                82: '/WeatherApp/resources/weatherIcons/rain.svg',
+                85: '/WeatherApp/resources/weatherIcons/partly-cloudy-day-snow.svg',
+                86: '/WeatherApp/resources/weatherIcons/snow.svg',
+                95: '/WeatherApp/resources/weatherIcons/thunderstorms-day-snow.svg',
+                96: '/WeatherApp/resources/weatherIcons/thunderstorms-day-snow.svg',
+                99: '/WeatherApp/resources/weatherIcons/thunderstorms-snow.svg',
+                default: '/WeatherApp/resources/weatherIcons/not-available.svg'
+            },
+            weatherNightIcons:  {
+                0: '/WeatherApp/resources/weatherIcons/clear-night.svg',
+                1: '/WeatherApp/resources/weatherIcons/partly-cloudy-night.svg',
+                2: '/WeatherApp/resources/weatherIcons/partly-cloudy-night.svg',
+                3: '/WeatherApp/resources/weatherIcons/overcast-night.svg',
+                45: '/WeatherApp/resources/weatherIcons/fog.svg',
+                48: '/WeatherApp/resources/weatherIcons/snow.svg',
+                51: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-drizzle.svg',
+                53: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-drizzle.svg',
+                55: '/WeatherApp/resources/weatherIcons/drizzle.svg',
+                56: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-sleet.svg',
+                57: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-sleet.svg',
+                61: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-rain.svg',
+                63: '/WeatherApp/resources/weatherIcons/partly-cloudy-night.svg',
+                65: '/WeatherApp/resources/weatherIcons/rain.svg',
+                66: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-sleet.svg',
+                67: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-sleet.svg',
+                71: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-snow.svg',
+                73: '/WeatherApp/resources/weatherIcons/snow.svg',
+                75: '/WeatherApp/resources/weatherIcons/snow.svg',
+                77: '/WeatherApp/resources/weatherIcons/snow.svg',
+                80: '/WeatherApp/resources/weatherIcons/drizzle.svg',
+                81: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-rain.svg',
+                82: '/WeatherApp/resources/weatherIcons/rain.svg',
+                85: '/WeatherApp/resources/weatherIcons/partly-cloudy-night-snow.svg',
+                86: '/WeatherApp/resources/weatherIcons/snow.svg',
+                95: '/WeatherApp/resources/weatherIcons/thunderstorms-night-snow.svg',
+                96: '/WeatherApp/resources/weatherIcons/thunderstorms-night-snow.svg',
+                99: '/WeatherApp/resources/weatherIcons/thunderstorms-snow.svg',
+                default: '/WeatherApp/resources/weatherIcons/not-available.svg'
+            }
         };  
     },
 
@@ -34,7 +96,7 @@ Vue.createApp({
             this.hasScrolledRight = true;
         },
         scrollRight() {
-            //scroll left
+            //scroll right
             console.log('clicked on Right Scroll!')
             let element = document.querySelector('.container');
             element.scrollTo({
@@ -65,9 +127,13 @@ Vue.createApp({
             const isStartOfScroll = scrollContainer.scrollLeft <= 120;
 
             this.showRightScroll = !isEndOfScroll;
-
             this.showLeftScroll = !isStartOfScroll;
-            console.log('END: ' + isEndOfScroll + ' START: ' + isStartOfScroll);
+        },
+        scrollTo(dateId){
+            console.log(dateId);
+            this.selectOption('hourly');
+            const element = document.getElementById(dateId);
+                    element.scrollIntoView({behavior: "smooth"});
         },
         getDayName(date) {
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -82,79 +148,27 @@ Vue.createApp({
             if (dayNumber < 10) {
                 day = day.substr(1);
             }
-
             if (dayNumber === 1 || dayNumber === 21 || dayNumber === 31) {
                 suffix = 'st';
-            } else if (dayNumber === 2 || dayNumber === 22) {
+            } 
+            else if (dayNumber === 2 || dayNumber === 22) {
                 suffix = 'nd';
-            } else if (dayNumber === 3 || dayNumber === 23) {
+            } 
+            else if (dayNumber === 3 || dayNumber === 23) {
                 suffix = 'rd';
             }
-
             return day + suffix + ' of ' + monthNames[new Date(date).getMonth()];
         },
-        getWeatherIcons(weatherCode){
-            switch(weatherCode) {
-                case 0:
-                    return '/WeatherApp/resources/weatherIcons/useful/clear-day.svg';
-                case 1:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day.svg';
-                case 2:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day.svg';
-                case 3:
-                    return '/WeatherApp/resources/weatherIcons/useful/overcast-day.svg';
-                case 45:
-                    return '/WeatherApp/resources/weatherIcons/useful/fog.svg';
-                case 48:
-                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg';
-                case 51:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-drizzle.svg';
-                case 53:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-drizzle.svg';
-                case 55:
-                    return '/WeatherApp/resources/weatherIcons/useful/drizzle.svg';
-                case 56:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; 
-                case 57:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; 
-                case 61:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-rain.svg'; 
-                case 63:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day.svg';
-                case 65:
-                    return '/WeatherApp/resources/weatherIcons/useful/rain.svg'; 
-                case 66:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; // För molniga nätter med måne
-                case 67:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-sleet.svg'; // För molniga dagar eller nätter utan sol eller måne
-                case 71:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-snow.svg'; // För molniga dagar eller nätter utan sol eller måne
-                case 73:
-                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg'; // För övercasta dagar eller nätter utan sol eller måne
-                case 75:
-                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg'; // För övercasta dagar eller nätter utan sol eller måne
-                case 77:
-                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg';
-                case 80:
-                    return '/WeatherApp/resources/weatherIcons/useful/drizzle.svg'; // Sökväg för väderkod 20
-                case 81:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-rain.svg'; // Sökväg för väderkod 21
-                case 82:
-                    return '/WeatherApp/resources/weatherIcons/useful/rain.svg'; // Sökväg för väderkod 22
-                case 85:
-                    return '/WeatherApp/resources/weatherIcons/useful/partly-cloudy-day-snow.svg'; // Sökväg för väderkod 23
-                case 86:
-                    return '/WeatherApp/resources/weatherIcons/useful/snow.svg'; // Sökväg för väderkod 24
-                case 95:
-                    return '/WeatherApp/resources/weatherIcons/useful/thunderstorm-day-snow.svg'; // Sökväg för väderkod 25
-                case 96:
-                    return '/WeatherApp/resources/weatherIcons/useful/thunderstorm-day-snow.svg'; // Sökväg för väderkod 26
-                case 99:
-                    return '/WeatherApp/resources/weatherIcons/useful/thunderstorms-snow.svg'; // Sökväg för väderkod 27
-                default:
-                    return '/WeatherApp/resources/weatherIcons/not-available.svg'; // Om ingen matchning hittas
+        getWeatherIcons(weatherCode, time = null){
+            if(time){
+                let dummydate = '2000-01-01-'
+                let startOfNight = Date.parse(dummydate + time) >= Date.parse(dummydate + "19:00");
+                let endOfNight = Date.parse(dummydate + time) <= Date.parse(dummydate + "06:00");
+                if(startOfNight || endOfNight){
+                    return this.weatherNightIcons[weatherCode]; 
+                }
             }
-            
+            return this.weatherDayIcons[weatherCode]; 
         },
         fetchData() {
             const geocodingParams = new URLSearchParams({
@@ -167,8 +181,8 @@ Vue.createApp({
                 console.log(locationData)
                 this.location = locationData[0].name;
                 this.country = locationData[0].country;
+                document.querySelector('.showLocation').classList.remove('hidden');
 
-                
                 api.fetchData(
                         locationData[0].latitude, locationData[0].longitude
                     ).then(weatherData => {
@@ -176,9 +190,9 @@ Vue.createApp({
                     console.log( weatherData)
                     this.weather = weatherData;
                     this.hasData = true;
-                    let element = document.querySelector('.container');
-                    element.scrollLeft = 0;
-                    element.classList.remove('hidden');
+                    let option = this.selectedOption === 1 ? 'hourly' : this.selectedOption === 7 ? 'week' : 'two-weeks';
+                    console.log(option);
+                    this.selectOption(option)
                    // this.createNewSvg();
                 });
             });
