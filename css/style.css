@@ -29,6 +29,7 @@ body {
 	flex-direction: column;
 	align-items: center;
 	/*background-image: url(../resources/fire.jpg);*/
+	
 }
 
 header {
@@ -40,30 +41,6 @@ h1 {
 	text-transform: uppercase;
 	font-size: 6rem;
 }
-
-/*
-======================================================================
-Regler för länkar                                                     
-======================================================================
-*/
-
-a:link,
-a:visited {
-	text-decoration: none;
-	color: #000;
-}
-
-a:focus,
-a:hover {
-	text-decoration: underline;
-}
-
-/*
-======================================================================
-Andra regler                                                         
-======================================================================
-*/
-
 /* Appen huvudcontainer */
 #app {
 	width: 100%;
@@ -72,18 +49,24 @@ Andra regler
 	align-items: center;
 }
 
+/*
+======================================================================
+Andra regler                                                         
+======================================================================
+*/
+
+
+
 /* Appens formulär */
-#app form {
+form {
+	flex: 1 1 auto;
 	display: flex;
-	flex-direction: row;
 	max-width: 550px;
 	margin: 1rem;
 	align-items: center;
 	justify-content: center;
 }
-
 input {
-	flex: 1 1 auto;
 	border-radius: 6px;
 	margin: 1rem;
 	padding: 10px;
@@ -91,6 +74,7 @@ input {
 	background-color: rgb(255, 255, 255);
 	font-weight: bold;
 	box-shadow: 2px 2px 3px rgb(0, 0, 0);
+	width: 100%; 
 }
 
 button {
@@ -106,7 +90,7 @@ button:disabled, button:active {
 	background-color: rgb(223, 221, 221);;
 	color: #000;
 	box-shadow: 2px 2px 3px rgb(0, 0, 0);
-
+	
 }
 
 /* Navigationsalternativ */
@@ -127,7 +111,6 @@ button:disabled, button:active {
 	flex: 0 0 auto;
 	flex-direction: column;
 	max-width: fit-content;
-	border-radius: 6px;
 	text-align: center;
 	min-width: 120px;
 	white-space: nowrap;
@@ -144,6 +127,9 @@ button:disabled, button:active {
 .overview section .temperature {
 	font-weight: bolder;
 	font-size: 2rem;
+}
+.overview:hover{
+	cursor: pointer;
 }
 
 /* Vädersymboler */
@@ -172,6 +158,9 @@ table .weatherIcons {
 
 .container::-webkit-scrollbar {
 	display: none;
+}
+.showWindSpeed img{
+	width: 40px;
 }
 
 .showLocation{
@@ -210,48 +199,49 @@ table .weatherIcons {
 
 .scroll-buttons img {
 	width: 20px;
-
+	
 }
 
 #scroll-left {
 	background: linear-gradient(to right,
-			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+	rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
 	left: 0;
 }
 
 #scroll-right {
 	background: linear-gradient(to left,
 			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
-	right: 0;
+			right: 0;
+		}
+		
+		.hidden {
+			display: none !important;
+		}
+		
+		#hourlyPresentation {
+			display: grid;
+			justify-content: center;
+			
+			border-color: #073463;
+			width: 100%;
+		}
+		
+		table {
+			
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			flex: 1;
+			margin: 1rem 0;
+			border-collapse: collapse;
+			background-color: white;
+			max-width: 800px;
+			font-weight: bold;
+			text-align: center;
+		}
+tr:first-child{
+	border-radius: 6px 6px 0 0;
 }
-
-.hidden {
-	display: none !important;
-}
-
-#hourlyPresentation {
-	display: flex;
-	flex-wrap: wrap;
-	flex: 0 0 auto;
-	flex-direction: column;
-	border-radius: 6px;
-	border-color: #073463;
-	text-align: center;
-	min-width: 120px;
-	white-space: nowrap;
-	margin: 1rem;
-	font-weight: bold;
-	width: 100%;
-}
-
-table {
-	border-radius: 6px;
-	flex: 1;
-	border-radius: 3px;
-	margin: 1rem;
-	border-collapse: collapse;
-	background-color: white;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+tr:last-child{
+	border-radius: 0 0 6px 6px;
 }
 tr{
 	display: grid;
@@ -264,7 +254,6 @@ th{
 	margin: 1.5rem 0;
 }
 
-
 th:hover {
 	background-color: coral;
 }
@@ -272,7 +261,6 @@ th:hover {
 tr:nth-child(odd) {
 	background-color: rgb(223, 221, 221);
 }
-
 
 svg {
 	width: 600px;
@@ -286,18 +274,33 @@ svg {
 #scroll-left img {
 	margin-right: 60%;
 }
-
+.showLocation{
+	font-size: 2rem;
+	background-color:  rgb(255, 230, 0);
+	min-height: 80px;
+	width: 100%;
+	max-width: 800px;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+.showLocation p {
+	font-size: 3rem;
+}
+.borderNshadow{
+	border-radius: 6px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 @media screen and (max-width: 968px) {
-
+	
 	
 	button, input {
-		font-size: 3rem;
+		font-size: 2rem;
 	}
 	body {
 		display: flex;
 		flex-wrap: nowrap;
 	}
-
+	
 	.container {
 		display: block;
 		width: 100%;
@@ -309,10 +312,10 @@ svg {
 		overflow-x: auto;
 		white-space: nowrap;
 		max-width: 550px;
-		margin: 0.5rem;
+		margin: 0.5rem 0;
 		flex-wrap: nowrap;
 		justify-content: space-around;
-		margin: 0.5rem;
+		
 
 	}
 
@@ -322,14 +325,15 @@ svg {
 	}
 
 	h1 {
-		font-size: 5rem;
+		font-size: 4rem;
 	}
 }
 
 @media screen and (max-width: 850px) {
 	button, input {
-		font-size: 3rem;
+		font-size: 2rem;
 	}
+
 	body {
 		flex-wrap: nowrap;
 	}
@@ -374,11 +378,11 @@ svg {
 		display: none;
 	}
 	th, th *{
-		font-size: 1rem;
+		font-size: 2rem;
 	}
 
 	h1 {
-		font-size: 5rem;
+		font-size: 4rem;
 	}
 
 }

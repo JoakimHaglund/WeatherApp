@@ -20,10 +20,10 @@
         <h1>Haglund Malm & Siggelin Weather Forecast</h1>
     </header>
     <div id="app">
-        <form @submit.prevent="fetchData">
+        <form @submit.prevent="fetchData" >
           
-                <label for="location-input"></label>
-                <input type="text" placeholder="Search here" v-model="searchLocation" id="location-input">
+            <label for="location-input"></label>
+            <input type="text" placeholder="Search here" v-model="searchLocation" id="location-input">
           
             <button type="submit">🔍</button>
         </form>
@@ -40,7 +40,7 @@
             </li>
 
         </ul>
-        <div class="showLocation gray-last-child">
+        <div class="showLocation gray-last-child borderNshadow hidden">
             <p>{{ location }}</p>
             <p class="">{{ country }}</p>
         </div>
@@ -49,7 +49,7 @@
                 <img src="resources/double-arrow-left-icon.svg" alt="">
             </div>
             <!--weather.daily[index] display template-->
-            <article class="overview" v-if="hasData" v-for="(value, index) in filteredForecastData">
+            <article class="overview borderNshadow" v-if="hasData" v-for="(value, index) in filteredForecastData" @click="scrollTo(value.time)">
                 <section class="dateTime">
                     <h3 class="itemDate">
                         <time v-if="value.time" :datetime="value.time">{{
@@ -70,6 +70,7 @@
                     <p> {{ value.precipitation_probability }} %</p>
                 </section>
                 <section class="showWindSpeed gray-last-child">
+                    
                     <p>
                         <span class="windArrow"
                             :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
@@ -84,7 +85,7 @@
             </div>
         </div>
         <div id="hourlyPresentation" class="hidden">
-            <table v-for="(date, index) in getAvailableDates()" :id="value">
+            <table class="borderNshadow" v-for="(date, index) in getAvailableDates()" :id="date">
                 <tr>
                     <th><time :datetime="date">{{getMonthName(date)}}</time></th>
                     <th></th>
@@ -97,7 +98,7 @@
                 <tr v-for="(value, index) in weatherOneDay(date)">
 
                     <td> {{ value.time }} </td>
-                    <td> <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons"> </td>
+                    <td> <img :src="getWeatherIcons(value.weather_code, value.time)" alt="Weather Icon" class="weatherIcons"> </td>
                     <td> {{ value.temp }}° </td>
                     <td> {{ value.apparent_temp }}° </td>
                   
