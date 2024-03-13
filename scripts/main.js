@@ -13,7 +13,7 @@ Vue.createApp({
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
-            weatherDayIcons:  {
+            weatherDayIcons: {
                 0: '/WeatherApp/resources/weatherIcons/clear-day.svg',
                 1: '/WeatherApp/resources/weatherIcons/partly-cloudy-day.svg',
                 2: '/WeatherApp/resources/weatherIcons/partly-cloudy-day.svg',
@@ -44,7 +44,7 @@ Vue.createApp({
                 99: '/WeatherApp/resources/weatherIcons/thunderstorms-snow.svg',
                 default: '/WeatherApp/resources/weatherIcons/not-available.svg'
             },
-            weatherNightIcons:  {
+            weatherNightIcons: {
                 0: '/WeatherApp/resources/weatherIcons/clear-night.svg',
                 1: '/WeatherApp/resources/weatherIcons/partly-cloudy-night.svg',
                 2: '/WeatherApp/resources/weatherIcons/partly-cloudy-night.svg',
@@ -75,7 +75,7 @@ Vue.createApp({
                 99: '/WeatherApp/resources/weatherIcons/thunderstorms-snow.svg',
                 default: '/WeatherApp/resources/weatherIcons/not-available.svg'
             }
-        };  
+        };
     },
 
     methods: {
@@ -83,63 +83,42 @@ Vue.createApp({
             svg.createDiagram(this.weather);
             console.log('SVG')
         },
-        scrollLeft() {
-            //scroll left
-            console.log('clicked on Right Scroll!')
+        scroll(scrollRight = false, divider = 4) {
             let element = document.querySelector('.container');
+            let scroll;
+            if(scrollRight){
+                scroll = element.scrollLeft + element.scrollWidth / divider;
+            }
+            else{
+                scroll = element.scrollLeft - element.scrollWidth / divider;
+            }
             element.scrollTo({
                 top: 0,
-                left: element.scrollLeft - element.scrollWidth / 4,
+                left: scroll,
                 behavior: "smooth",
-              });
+            });
 
             this.hasScrolledRight = true;
-        },
-        scrollRight() {
-            //scroll right
-            console.log('clicked on Right Scroll!')
-            let element = document.querySelector('.container');
-            element.scrollTo({
-                top: 0,
-                left: element.scrollLeft + element.scrollWidth / 4,
-                behavior: "smooth",
-              });
-
-            this.hasScrolledRight = true;
-        },
-        scrollTranslate() {
-            const scrollContainer = this.$refs.scrollContainer;
-            const scrollLeft = scrollContainer.scrollLeft;
-            const scrollWidth = scrollContainer.scrollWidth;
-            const clientWidth = scrollContainer.clientWidth;
-
-            // Calculate scroll percentage
-            const scrollPercentage = (scrollLeft / (scrollWidth - clientWidth)) * 100;
-
-            console.log("Scroll Left:", scrollLeft);
-            console.log("Scroll Width:", scrollWidth);
-            console.log("Client Width:", clientWidth);
-            console.log("Scroll Percentage:", scrollPercentage.toFixed(2) + "%");
         },
         handleScroll() {
             const scrollContainer = this.$refs.scrollContainer;
-            const isEndOfScroll = scrollContainer.scrollLeft + scrollContainer.clientWidth  >= scrollContainer.scrollWidth - 120;
+            const isEndOfScroll = scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 120;
             const isStartOfScroll = scrollContainer.scrollLeft <= 120;
 
             this.showRightScroll = !isEndOfScroll;
             this.showLeftScroll = !isStartOfScroll;
         },
-        scrollTo(dateId){
+        scrollTo(dateId) {
             console.log(dateId);
             this.selectOption('hourly');
             const element = document.getElementById(dateId);
-                    element.scrollIntoView({behavior: "smooth"});
+            element.scrollIntoView({ behavior: "smooth" });
         },
         getDayName(date) {
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
             return dayNames[new Date(date).getDay()];
         },
-        getMonthName(date){
+        getMonthName(date) {
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             let day = date.substr(date.length - 2);
             let dayNumber = parseInt(day);
@@ -150,25 +129,25 @@ Vue.createApp({
             }
             if (dayNumber === 1 || dayNumber === 21 || dayNumber === 31) {
                 suffix = 'st';
-            } 
+            }
             else if (dayNumber === 2 || dayNumber === 22) {
                 suffix = 'nd';
-            } 
+            }
             else if (dayNumber === 3 || dayNumber === 23) {
                 suffix = 'rd';
             }
             return day + suffix + ' of ' + monthNames[new Date(date).getMonth()];
         },
-        getWeatherIcons(weatherCode, time = null){
-            if(time){
+        getWeatherIcons(weatherCode, time = null) {
+            if (time) {
                 let dummydate = '2000-01-01 '
                 let startOfNight = Date.parse(dummydate + time) >= Date.parse(dummydate + "19:00");
                 let endOfNight = Date.parse(dummydate + time) <= Date.parse(dummydate + "06:00");
-                if(startOfNight || endOfNight){
-                    return this.weatherNightIcons[weatherCode]; 
+                if (startOfNight || endOfNight) {
+                    return this.weatherNightIcons[weatherCode];
                 }
             }
-            return this.weatherDayIcons[weatherCode]; 
+            return this.weatherDayIcons[weatherCode];
         },
         fetchData() {
             const geocodingParams = new URLSearchParams({
@@ -184,72 +163,74 @@ Vue.createApp({
                 document.querySelector('.showLocation').classList.remove('hidden');
 
                 api.fetchData(
-                        locationData[0].latitude, locationData[0].longitude
-                    ).then(weatherData => {
-                        console.log( 'weatherData')
-                    console.log( weatherData)
+                    locationData[0].latitude, locationData[0].longitude
+                ).then(weatherData => {
+                    console.log('weatherData')
+                    console.log(weatherData)
                     this.weather = weatherData;
                     this.hasData = true;
                     let option = this.selectedOption === 1 ? 'hourly' : this.selectedOption === 7 ? 'week' : 'two-weeks';
                     console.log(option);
                     this.selectOption(option)
-                   // this.createNewSvg();
+                    // this.createNewSvg();
                 });
             });
 
-
         },
-      
+
         selectOption(option) {
             let dailyContainer = document.querySelector('.container');
             let hourlyPresentation = document.querySelector('#hourlyPresentation');
             dailyContainer.scrollLeft = 0;
-            if(option === 'hourly'){
+            if (option === 'hourly') {
                 this.selectedOption = 1;
                 dailyContainer.classList.add('hidden');
                 hourlyPresentation.classList.remove('hidden');
-                
+
             }
-            else if(option === 'week'){
+            else if (option === 'week') {
                 this.selectedOption = 7;
                 dailyContainer.classList.remove('hidden');
                 hourlyPresentation.classList.add('hidden');
+                this.showRightScroll = true;
             }
-            else{
+            else {
                 this.selectedOption = 14;
                 dailyContainer.classList.remove('hidden');
                 hourlyPresentation.classList.add('hidden');
+                this.showRightScroll = true;
+
             }
         },
-        weatherOneDay(date){
-            if (this.hasData){
+        weatherOneDay(date) {
+            if (this.hasData) {
                 let daily = [];
-                for(let i = 0; i < this.weather.hourly.length; i++){
+                for (let i = 0; i < this.weather.hourly.length; i++) {
                     let dateTime = this.weather.hourly[i].time.split('T');
-                    let selectedDate = Date.parse(dateTime[0]) ===  Date.parse(date);
+                    let selectedDate = Date.parse(dateTime[0]) === Date.parse(date);
                     let notPassedHours = Date.now() <= Date.parse(this.weather.hourly[i].time);
-                    if (selectedDate && notPassedHours){
+                    if (selectedDate && notPassedHours) {
                         daily.push(Object.assign({}, this.weather.hourly[i]))
                         daily[daily.length - 1].time = dateTime[1]
                     }
-                    else if (Date.parse(dateTime[0]) >  Date.parse(date)){
+                    else if (Date.parse(dateTime[0]) > Date.parse(date)) {
                         break;
                     }
                 }
                 return daily;
             }
         },
-        getAvailableDates(){
-            if(this.hasData){
-            let dates = this.weather.hourly.map(date => date.time.split('T')[0]);
-            dates = dates.filter((date, index, array) => array.indexOf(date) === index);
-            return dates;
+        getAvailableDates() {
+            if (this.hasData) {
+                let dates = this.weather.hourly.map(date => date.time.split('T')[0]);
+                dates = dates.filter((date, index, array) => array.indexOf(date) === index);
+                return dates;
             }
         }
     },
     computed: {
         filteredForecastData() {
-            return this.weather.daily.slice(0, this.selectedOption ); // Filter the forecast data based on the selected option
+            return this.weather.daily.slice(0, this.selectedOption); // Filter the forecast data based on the selected option
 
         },
 
@@ -261,7 +242,6 @@ Vue.createApp({
             }
         }
 
-
     },
     watch: {
         scrollContainer(value) {
@@ -272,7 +252,7 @@ Vue.createApp({
     },
     mounted() {
 
-       // this.fetchData();
+        // this.fetchData();
         // Call the function to create SVG when the component is mounted
         //this.createNewSvg();
     }

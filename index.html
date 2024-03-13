@@ -9,7 +9,8 @@
     <link rel="icon" type="image/gif" href="resources/tenor.gif">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script type="module" src="scripts/main.js" defer></script>
@@ -17,14 +18,14 @@
 
 <body>
     <header>
-        <h1>HMS Weather</h1>
+        <h1>HMS Weather </h1>
     </header>
     <div id="app">
-        <form @submit.prevent="fetchData" >
-          
+        <form @submit.prevent="fetchData">
+
             <label for="location-input"></label>
             <input type="text" placeholder="Search here" v-model="searchLocation" id="location-input">
-          
+
             <button type="submit">🔍</button>
         </form>
 
@@ -44,12 +45,13 @@
             <p>{{ location }}</p>
             <p class="">{{ country }}</p>
         </div>
-        <div class="container hidden" v-on:hover="scrollTranslate" @scroll="handleScroll" ref="scrollContainer">
-            <div id="scroll-left" class="scroll-buttons" @click="scrollLeft" v-show="showLeftScroll">
+        <div class="container hidden"  @scroll="handleScroll" ref="scrollContainer">
+            <div id="scroll-left" class="scroll-buttons" @click="scroll()" v-show="showLeftScroll">
                 <img src="resources/double-arrow-left-icon.svg" alt="">
             </div>
             <!--weather.daily[index] display template-->
-            <article class="overview borderNshadow" v-if="hasData" v-for="(value, index) in filteredForecastData" @click="scrollTo(value.time)">
+            <article class="overview borderNshadow" v-if="hasData" v-for="(value, index) in filteredForecastData"
+                @click="scrollTo(value.time)">
                 <section class="dateTime">
                     <h3 class="itemDate">
                         <time v-if="value.time" :datetime="value.time">{{
@@ -57,7 +59,6 @@
                     </h3>
                     <p>{{getMonthName(value.time)}}</p>
                 </section>
-                
                 <section class="temp gray-last-child">
                     <p class="temperature">{{ value.temp }}°C</p>
                     <p>Feels like: {{ value.apparent_temp }}°C</p>
@@ -65,22 +66,24 @@
                 <section class="weatherIcon">
                     <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons">
                 </section>
-                <section class="showPrecipitation gray-last-child">
-                    <p>{{ value.precipitation }} mm </p>
-                    <p> {{ value.precipitation_probability }} %</p>
-                </section>
-                <section class="showWindSpeed gray-last-child">
-                    
-                    <p>
-                        <span class="windArrow"
-                            :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
-                        {{ value.wind_speed }} m/s
-                    </p>
-                    <p>{{ value.wind_gusts }}m/s </p>
-                </section>
-            </article>
+<div class="blue">
 
-            <div id="scroll-right" class="scroll-buttons" @click="scrollRight" v-show="showRightScroll">
+    <section class="showPrecipitation gray-last-child">
+        <p>{{ value.precipitation }} mm </p>
+        <p> {{ value.precipitation_probability }} %</p>
+    </section>
+    <section class="showWindSpeed gray-last-child">
+
+        <p>
+            <span class="windArrow"
+                :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
+            {{ value.wind_speed }} m/s
+        </p>
+        <p>{{ value.wind_gusts }}m/s </p>
+    </section>
+</div>
+            </article>
+            <div id="scroll-right" class="scroll-buttons" @click="scroll(true)" v-show="showRightScroll">
                 <img src="resources/double-arrow-right-icon.svg" alt="">
             </div>
         </div>
@@ -91,17 +94,17 @@
                     <th></th>
                     <th>Temp</th>
                     <th>Feels like</th>
-                 
                     <th>mm</th>
                     <th>m/s (Gusts)</th>
                 </tr>
                 <tr v-for="(value, index) in weatherOneDay(date)">
 
                     <td> {{ value.time }} </td>
-                    <td> <img :src="getWeatherIcons(value.weather_code, value.time)" alt="Weather Icon" class="weatherIcons"> </td>
+                    <td> <img :src="getWeatherIcons(value.weather_code, value.time)" alt="Weather Icon"
+                            class="weatherIcons"> </td>
                     <td> {{ value.temp }}° </td>
                     <td> {{ value.apparent_temp }}° </td>
-                  
+
                     <td> {{ value.precipitation }} <br> {{ value.precipitation_probability }} %</td>
                     <td><span class="windArrow"
                             :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
@@ -113,6 +116,5 @@
     <div id="svg">
 
     </div>
-
 
 </html>

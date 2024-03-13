@@ -1,6 +1,6 @@
 /*
 ======================================================================
-Globala regler                                                        
+Globala regler
 ======================================================================
 */
 
@@ -24,12 +24,13 @@ body {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	/*outline: 1px solid red;*/
 	background-color: #a9d8f7;
 	flex-direction: column;
 	align-items: center;
-	/*background-image: url(../resources/fire.jpg);*/
-	
+	background-image: url("../css/resources/background.svg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-attachment: fixed;
 }
 
 header {
@@ -39,8 +40,11 @@ header {
 
 h1 {
 	text-transform: uppercase;
+	color: #6f9bb8;
 	font-size: 6rem;
+	text-shadow:0px 0px 80px  rgb(156, 156, 156);
 }
+
 /* Appen huvudcontainer */
 #app {
 	width: 100%;
@@ -51,11 +55,9 @@ h1 {
 
 /*
 ======================================================================
-Andra regler                                                         
+Andra regler
 ======================================================================
 */
-
-
 
 /* Appens formulär */
 form {
@@ -66,6 +68,7 @@ form {
 	align-items: center;
 	justify-content: center;
 }
+
 input {
 	border-radius: 6px;
 	margin: 1rem;
@@ -74,7 +77,7 @@ input {
 	background-color: rgb(255, 255, 255);
 	font-weight: bold;
 	box-shadow: 2px 2px 3px rgb(0, 0, 0);
-	width: 100%; 
+	width: 100%;
 }
 
 button {
@@ -86,11 +89,12 @@ button {
 	background-color: rgb(255, 255, 255);
 }
 
-button:disabled, button:active {
-	background-color: rgb(223, 221, 221);;
+button:disabled,
+button:active {
+	background-color: rgb(223, 221, 221);
 	color: #000;
 	box-shadow: 2px 2px 3px rgb(0, 0, 0);
-	
+
 }
 
 /* Navigationsalternativ */
@@ -128,7 +132,8 @@ button:disabled, button:active {
 	font-weight: bolder;
 	font-size: 2rem;
 }
-.overview:hover{
+
+.overview:hover {
 	cursor: pointer;
 }
 
@@ -136,6 +141,7 @@ button:disabled, button:active {
 .weatherIcons {
 	width: 90px;
 	margin: auto;
+
 }
 
 table .weatherIcons {
@@ -159,14 +165,11 @@ table .weatherIcons {
 .container::-webkit-scrollbar {
 	display: none;
 }
-.showWindSpeed img{
+
+.showWindSpeed img {
 	width: 40px;
 }
 
-.showLocation{
-	font-weight: 600;
-	margin-bottom: 0.5rem;
-}
 .gray-last-child p:last-child {
 	font-size: 0.8em !important;
 	color: gray;
@@ -199,58 +202,52 @@ table .weatherIcons {
 
 .scroll-buttons img {
 	width: 20px;
-	
 }
 
 #scroll-left {
 	background: linear-gradient(to right,
-	rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
+			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
 	left: 0;
 }
 
 #scroll-right {
 	background: linear-gradient(to left,
 			rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0) 100%);
-			right: 0;
-		}
-		
-		.hidden {
-			display: none !important;
-		}
-		
-		#hourlyPresentation {
-			display: grid;
-			justify-content: center;
-			
-			border-color: #073463;
-			width: 100%;
-		}
-		
-		table {
-			
-			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-			flex: 1;
-			margin: 1rem 0;
-			border-collapse: collapse;
-			background-color: white;
-			max-width: 800px;
-			font-weight: bold;
-			text-align: center;
-		}
-tr:first-child{
+	right: 0;
+}
+
+.hidden {
+	display: none !important;
+}
+
+table {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	flex: 1;
+	margin-bottom: 1rem;
+	border-collapse: collapse;
+	background-color: white;
+	width: 800px;
+	font-weight: bold;
+	text-align: center;
+}
+
+tr:first-child {
 	border-radius: 6px 6px 0 0;
 }
-tr:last-child{
+
+tr:last-child {
 	border-radius: 0 0 6px 6px;
 }
-tr{
+
+tr {
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	justify-content: space-around;
 	align-items: center;
 	padding: 0 1rem;
 }
-th{
+
+th {
 	margin: 1.5rem 0;
 }
 
@@ -274,38 +271,52 @@ svg {
 #scroll-left img {
 	margin-right: 60%;
 }
-.showLocation{
+
+.showLocation {
 	font-size: 2rem;
-	background-color:  rgb(255, 230, 0);
-	min-height: 80px;
+	background-color: rgb(255, 233, 31);
+	height: 70px;
 	width: 100%;
 	max-width: 800px;
-	padding: 1rem;
 	margin-bottom: 1rem;
+	font-weight: 600;
+	padding: 0.4rem 1rem ;
 }
+
 .showLocation p {
 	font-size: 3rem;
 }
-.borderNshadow{
+
+.borderNshadow {
 	border-radius: 6px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.blue{
+
+	background-image: linear-gradient(white, #a9d8f7);
+
+	/*background-color: #a9d8f7;linear-gradient(white, #a9d8f7);*/
+	border-radius: 6px;
+}
+
 @media screen and (max-width: 850px) {
-	
-	
-	button, input {
+
+	button,
+	input {
 		font-size: 2rem;
 	}
+
 	body {
 		display: flex;
 		flex-wrap: nowrap;
 	}
-	
+
 	.container {
 		display: block;
 		width: 100%;
 	}
-	
+
 	.overview {
 		min-width: 99%;
 		flex-direction: row;
@@ -315,8 +326,6 @@ svg {
 		margin: 0.5rem 0;
 		flex-wrap: nowrap;
 		justify-content: space-around;
-		
-
 	}
 
 	#scroll-left,
@@ -329,8 +338,17 @@ svg {
 	}
 }
 
+@media screen and (max-width: 800px) {
+	table {
+		width: 100%;
+		max-width: 800px;
+	}
+}
+
 @media screen and (max-width: 520px) {
-	button, input {
+
+	button,
+	input {
 		font-size: 1.5rem;
 	}
 
@@ -340,25 +358,38 @@ svg {
 
 	.container {
 		display: block;
-		
 	}
-	.dateTime{grid-area: dateTime;}
-	.temp{grid-area: temp;}
-	.weatherIcon{
+
+	.dateTime {
+		grid-area: dateTime;
+	}
+
+	.temp {
+		grid-area: temp;
+	}
+
+	.weatherIcon {
 		grid-area: weatherIcon;
 	}
-	.weatherIcons{
+
+	.weatherIcons {
 		width: 50px;
 	}
-	.showPrecipitation{grid-area: precipitation;}
-	.showWindSpeed{grid-area: windSpeed;}
+
+	.showPrecipitation {
+		grid-area: precipitation;
+	}
+
+	.showWindSpeed {
+		grid-area: windSpeed;
+	}
 
 	.overview {
 		min-width: 99%;
 		display: grid;
-		grid-template-areas: 
-		'dateTime dateTime dateTime dateTime'
-		' weatherIcon  temp windSpeed precipitation' 
+		grid-template-areas:
+			'dateTime dateTime dateTime dateTime'
+			' weatherIcon  temp windSpeed precipitation'
 		;
 		justify-content: space-around;
 		align-items: center;
@@ -368,7 +399,7 @@ svg {
 		gap: 1.6rem;
 	}
 
-	.overview section{
+	.overview section {
 		display: block;
 		margin: 0;
 	}
@@ -377,12 +408,8 @@ svg {
 	#scroll-right {
 		display: none;
 	}
-	th, th *{
-		font-size: 2rem;
-	}
 
 	h1 {
 		font-size: 4rem;
 	}
-
 }
