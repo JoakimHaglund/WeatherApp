@@ -91,7 +91,7 @@ button {
 
 button:disabled,
 button:active {
-	background-color: rgb(223, 221, 221);
+	background-color: #cbe6f8;
 	color: #000;
 	box-shadow: 2px 2px 3px rgb(0, 0, 0);
 
@@ -251,12 +251,8 @@ th {
 	margin: 1.5rem 0;
 }
 
-th:hover {
-	background-color: coral;
-}
-
 tr:nth-child(odd) {
-	background-color: rgb(223, 221, 221);
+	background-color: #a9d8f7;
 }
 
 svg {
@@ -320,8 +316,14 @@ svg {
 	.overview {
 		min-width: 99%;
 		flex-direction: row;
-		overflow-x: auto;
-		white-space: nowrap;
+		max-width: 550px;
+		margin: 0.5rem 0;
+		flex-wrap: nowrap;
+		justify-content: space-around;
+	}
+	.blue {
+		display: flex;
+		flex-direction: row;
 		max-width: 550px;
 		margin: 0.5rem 0;
 		flex-wrap: nowrap;
