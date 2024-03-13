@@ -161,7 +161,7 @@ Vue.createApp({
         },
         getWeatherIcons(weatherCode, time = null){
             if(time){
-                let dummydate = '2000-01-01-'
+                let dummydate = '2000-01-01 '
                 let startOfNight = Date.parse(dummydate + time) >= Date.parse(dummydate + "19:00");
                 let endOfNight = Date.parse(dummydate + time) <= Date.parse(dummydate + "06:00");
                 if(startOfNight || endOfNight){
