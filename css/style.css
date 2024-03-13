@@ -296,7 +296,7 @@ svg {
 	border-radius: 6px;
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 950px) {
 
 	button,
 	input {
@@ -340,12 +340,6 @@ svg {
 	}
 }
 
-@media screen and (max-width: 850px) {
-	table {
-		width: 100%;
-		max-width: 800px;
-	}
-}
 
 @media screen and (max-width: 520px) {
 
