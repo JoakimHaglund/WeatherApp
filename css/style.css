@@ -290,7 +290,7 @@ svg {
 	border-radius: 6px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-@media screen and (max-width: 968px) {
+@media screen and (max-width: 850px) {
 	
 	
 	button, input {
@@ -329,9 +329,9 @@ svg {
 	}
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 500px) {
 	button, input {
-		font-size: 2rem;
+		font-size: 1.5rem;
 	}
 
 	body {
