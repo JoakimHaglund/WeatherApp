@@ -329,7 +329,7 @@ svg {
 	}
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 520px) {
 	button, input {
 		font-size: 1.5rem;
 	}
