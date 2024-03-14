@@ -15,7 +15,7 @@ test("check weather data fetching and display", async ({ page }) => {
   let locationInput = page.locator("#location-input");
   await locationInput.fill("Amsterdam");
   await locationInput.press("Enter");
-  await page.waitForSelector(".container", { state: "visible" });
+  await page.waitForSelector(".weatherCard", { state: "visible" });
 
   const temperatureElement = await page.$(".temperature");
   expect(temperatureElement).not.toBeNull();
@@ -36,7 +36,7 @@ test("check weather data display after switching forecast options", async ({
   let locationInput = page.locator("#location-input");
   await locationInput.fill("Amsterdam");
   await locationInput.press("Enter");
-  await page.waitForSelector(".container", { state: "visible" });
+  await page.waitForSelector(".weatherCard", { state: "visible" });
 
   const dailyForecastButton = await page.waitForSelector(
     'button:has-text("Daily Forecast")'
