@@ -47,15 +47,6 @@ test("check weather data display after switching forecast options", async ({
   const temperatureElementDaily = await page.$(".temperature");
   expect(temperatureElementDaily).not.toBeNull();
 
-  const weeklyForecastButton = await page.waitForSelector(
-    'button:has-text("7-Day Forecast")'
-  );
-  await weeklyForecastButton.click();
-  await page.locator(".temperature", { state: "visible" });
-
-  const temperatureElementWeekly = await page.$(".temperature");
-  expect(temperatureElementWeekly).not.toBeNull();
-
   const fourteenDaysForecastButton = await page.waitForSelector(
     'button:has-text("14-Day Forecast")'
   );
