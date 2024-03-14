@@ -45,12 +45,12 @@
             <p>{{ location }}</p>
             <p class="">{{ country }}</p>
         </div>
-        <div class="container hidden"  @scroll="handleScroll" ref="scrollContainer">
+        <div class="weatherDeck hidden" @scroll="handleScroll" ref="scrollContainer">
             <div id="scroll-left" class="scroll-buttons" @click="scroll()" v-show="showLeftScroll">
                 <img src="resources/double-arrow-left-icon.svg" alt="">
             </div>
             <!--weather.daily[index] display template-->
-            <article class="overview borderNshadow" v-if="hasData" v-for="(value, index) in filteredForecastData"
+            <article class="weatherCard borderNshadow" v-if="hasData" v-for="(value, index) in filteredForecastData"
                 @click="scrollTo(value.time)">
                 <section class="dateTime">
                     <h3 class="itemDate">
@@ -66,22 +66,21 @@
                 <section class="weatherIcon">
                     <img :src="getWeatherIcons(value.weather_code)" alt="Weather Icon" class="weatherIcons">
                 </section>
-<div class="blue">
+                <div class="weatherElementsSubContainer">
+                    <section class="showPrecipitation gray-last-child">
+                        <p>{{ value.precipitation }} mm </p>
+                        <p> {{ value.precipitation_probability }} %</p>
+                    </section>
+                    <section class="showWindSpeed gray-last-child">
 
-    <section class="showPrecipitation gray-last-child">
-        <p>{{ value.precipitation }} mm </p>
-        <p> {{ value.precipitation_probability }} %</p>
-    </section>
-    <section class="showWindSpeed gray-last-child">
-
-        <p>
-            <span class="windArrow"
-                :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
-            {{ value.wind_speed }} m/s
-        </p>
-        <p>{{ value.wind_gusts }}m/s </p>
-    </section>
-</div>
+                        <p>
+                            <span class="windArrow"
+                                :style="{ display: 'inline-block', transform: 'rotate(' + value.wind_direction + 'deg)' }">↓</span>
+                            {{ value.wind_speed }} m/s
+                        </p>
+                        <p>{{ value.wind_gusts }}m/s </p>
+                    </section>
+                </div>
             </article>
             <div id="scroll-right" class="scroll-buttons" @click="scroll(true)" v-show="showRightScroll">
                 <img src="resources/double-arrow-right-icon.svg" alt="">

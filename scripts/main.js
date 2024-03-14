@@ -84,7 +84,7 @@ Vue.createApp({
             console.log('SVG')
         },
         scroll(scrollRight = false, divider = 4) {
-            let element = document.querySelector('.container');
+            let element = document.querySelector('.weatherDeck');
             let scroll;
             if(scrollRight){
                 scroll = element.scrollLeft + element.scrollWidth / divider;
@@ -179,7 +179,7 @@ Vue.createApp({
         },
 
         selectOption(option) {
-            let dailyContainer = document.querySelector('.container');
+            let dailyContainer = document.querySelector('.weatherDeck');
             let hourlyPresentation = document.querySelector('#hourlyPresentation');
             dailyContainer.scrollLeft = 0;
             if (option === 'hourly') {

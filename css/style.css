@@ -42,15 +42,17 @@ h1 {
 	text-transform: uppercase;
 	color: #6f9bb8;
 	font-size: 6rem;
-	text-shadow:0px 0px 80px  rgb(156, 156, 156);
+	text-shadow: 0px 0px 80px rgb(156, 156, 156);
+	margin-top: 4rem;
 }
 
-/* Appen huvudcontainer */
+/* Appen huvudweatherDeck */
 #app {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	opacity: 0.9;
 }
 
 /*
@@ -109,7 +111,7 @@ button:active {
 }
 
 /* Översikt */
-.overview {
+.weatherCard {
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 0 auto;
@@ -121,26 +123,29 @@ button:active {
 	margin-right: 20px;
 	background-color: rgb(255, 255, 255);
 	box-shadow: 2px 2px 3px rgb(85, 85, 85);
+
 }
 
-.overview section {
+.weatherCard section {
 	margin: 10px;
 	display: grid;
+	justify-content: center;
+	align-content: center;
 }
 
-.overview section .temperature {
+.weatherCard section .temperature {
 	font-weight: bolder;
 	font-size: 2rem;
 }
 
-.overview:hover {
+.weatherCard:hover {
 	cursor: pointer;
 }
 
 /* Vädersymboler */
 .weatherIcons {
 	width: 90px;
-	margin: auto;
+	margin: 0;
 
 }
 
@@ -149,20 +154,27 @@ table .weatherIcons {
 	margin: auto;
 }
 
-/* Container för översikten */
-.container {
+/* weatherDeck för översikten */
+.weatherDeck {
 	display: flex;
 	gap: 1rem;
 	overflow-x: scroll;
-	padding-bottom: 20px;
 	max-width: 800px;
 	-ms-overflow-style: none;
 	/* IE and Edge */
 	scrollbar-width: none;
 	/* Firefox */
+	border-radius: 6px;
 }
 
-.container::-webkit-scrollbar {
+#hourlyPresentation {
+	display: flex;
+	flex-direction: column;
+	max-width: 800px;
+	width: 100%;
+}
+
+.weatherDeck::-webkit-scrollbar {
 	display: none;
 }
 
@@ -223,20 +235,11 @@ table .weatherIcons {
 table {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	flex: 1;
-	margin-bottom: 1rem;
+	margin-bottom: 5rem;
 	border-collapse: collapse;
 	background-color: white;
-	width: 800px;
 	font-weight: bold;
 	text-align: center;
-}
-
-tr:first-child {
-	border-radius: 6px 6px 0 0;
-}
-
-tr:last-child {
-	border-radius: 0 0 6px 6px;
 }
 
 tr {
@@ -247,13 +250,24 @@ tr {
 	padding: 0 1rem;
 }
 
-th {
-	margin: 1.5rem 0;
+tr:first-child {
+	border-radius: 6px 6px 0 0;
+	background-color: rgb(255, 233, 31) !important;
+}
+
+tr:last-child {
+	border-radius: 0 0 6px 6px;
 }
 
 tr:nth-child(odd) {
 	background-color: #a9d8f7;
 }
+
+
+th {
+	margin: 1.5rem 0;
+}
+
 
 svg {
 	width: 600px;
@@ -276,7 +290,8 @@ svg {
 	max-width: 800px;
 	margin-bottom: 1rem;
 	font-weight: 600;
-	padding: 0.4rem 1rem ;
+	padding: 0.4rem 1rem;
+	margin-bottom: 4rem;
 }
 
 .showLocation p {
@@ -288,11 +303,9 @@ svg {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.blue{
+.weatherElementsSubContainer  {
 
 	background-image: linear-gradient(white, #a9d8f7);
-
-	/*background-color: #a9d8f7;linear-gradient(white, #a9d8f7);*/
 	border-radius: 6px;
 }
 
@@ -308,28 +321,31 @@ svg {
 		flex-wrap: nowrap;
 	}
 
-	.container {
+	.weatherDeck {
 		display: block;
 		width: 100%;
 	}
 
-	.overview {
-		min-width: 99%;
-		flex-direction: row;
+	.weatherCard {
+		min-width: 100%;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 2fr;
 		max-width: 550px;
 		margin: 0.5rem 0;
-		flex-wrap: nowrap;
-		justify-content: space-around;
-	}
-	.blue {
-		display: flex;
-		flex-direction: row;
-		max-width: 550px;
-		margin: 0.5rem 0;
-		flex-wrap: nowrap;
-		justify-content: space-around;
+
+
 	}
 
+	.weatherElementsSubContainer  {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		max-width: 550px;
+		margin: 0;
+		background-image: none;
+	}
+	.windArrow{
+		margin: 0;
+	}
 	#scroll-left,
 	#scroll-right {
 		display: none;
@@ -340,12 +356,6 @@ svg {
 	}
 }
 
-@media screen and (max-width: 800px) {
-	table {
-		width: 100%;
-		max-width: 800px;
-	}
-}
 
 @media screen and (max-width: 520px) {
 
@@ -358,7 +368,7 @@ svg {
 		flex-wrap: nowrap;
 	}
 
-	.container {
+	.weatherDeck {
 		display: block;
 	}
 
@@ -378,20 +388,19 @@ svg {
 		width: 50px;
 	}
 
-	.showPrecipitation {
-		grid-area: precipitation;
+	.weatherElementsSubContainer  {
+		grid-area: weatherElements;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		background-image: none;
 	}
 
-	.showWindSpeed {
-		grid-area: windSpeed;
-	}
-
-	.overview {
+	.weatherCard {
 		min-width: 99%;
 		display: grid;
 		grid-template-areas:
 			'dateTime dateTime dateTime dateTime'
-			' weatherIcon  temp windSpeed precipitation'
+			' weatherIcon  temp weatherElements weatherElements'
 		;
 		justify-content: space-around;
 		align-items: center;
@@ -401,7 +410,7 @@ svg {
 		gap: 1.6rem;
 	}
 
-	.overview section {
+	.weatherCard section {
 		display: block;
 		margin: 0;
 	}
