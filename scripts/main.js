@@ -9,7 +9,7 @@ Vue.createApp({
             location: '',
             country: '',
             weather: {},
-            selectedOption: 14,
+            selectedOption: false,
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
@@ -171,7 +171,7 @@ Vue.createApp({
                     console.log(weatherData)
                     this.weather = weatherData;
                     this.hasData = true;
-                    let option = this.selectedOption === 1 ? 'hourly' : this.selectedOption === 7 ? 'week' : 'two-weeks';
+                    let option = this.selectedOption === true ? 'hourly' : false;
                     console.log(option);
                     this.selectOption(option)
                     // this.createNewSvg();
@@ -186,25 +186,16 @@ Vue.createApp({
             let hourlyPresentation = document.querySelector('#hourlyPresentation');
             dailyContainer.scrollLeft = 0;
             if (option === 'hourly') {
-                this.selectedOption = 1;
+                this.selectedOption = true;
                 dailyContainer.classList.add('hidden');
                 hourlyPresentation.classList.remove('hidden');
-
-            }
-            else if (option === 'week') {
-                this.selectedOption = 7;
-                dailyContainer.classList.remove('hidden');
-                hourlyPresentation.classList.add('hidden');
-                this.showRightScroll = true;
-                this.divider = 1;
             }
             else {
-                this.selectedOption = 14;
+                this.selectedOption = false;
                 dailyContainer.classList.remove('hidden');
                 hourlyPresentation.classList.add('hidden');
                 this.showRightScroll = true;
                 this.divider = 4;
-
             }
         },
         weatherOneDay(date) {
