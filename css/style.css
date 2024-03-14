@@ -182,7 +182,8 @@ table .weatherIcons {
 	width: 40px;
 }
 
-.gray-last-child p:last-child {
+.gray-last-child p:last-child,
+.gray {
 	font-size: 0.8em !important;
 	color: gray;
 	font-style: italic;
@@ -303,7 +304,7 @@ svg {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.weatherElementsSubContainer  {
+.weatherElementsSubContainer {
 
 	background-image: linear-gradient(white, #a9d8f7);
 	border-radius: 6px;
@@ -336,24 +337,24 @@ svg {
 
 	}
 
-	.weatherElementsSubContainer  {
+	.weatherElementsSubContainer {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		max-width: 550px;
 		margin: 0;
 		background-image: none;
 	}
-	.windArrow{
+
+	.windArrow {
 		margin: 0;
 	}
+
 	#scroll-left,
 	#scroll-right {
 		display: none;
 	}
 
-	h1 {
-		font-size: 4rem;
-	}
+
 }
 
 
@@ -372,27 +373,16 @@ svg {
 		display: block;
 	}
 
-	.dateTime {
-		grid-area: dateTime;
-	}
+	.dateTime {grid-area: dateTime;}
+	.temp {grid-area: temp;}
+	.weatherIcon {grid-area: weatherIcon;}
+	.weatherIcons {width: 50px;}
 
-	.temp {
-		grid-area: temp;
-	}
-
-	.weatherIcon {
-		grid-area: weatherIcon;
-	}
-
-	.weatherIcons {
-		width: 50px;
-	}
-
-	.weatherElementsSubContainer  {
+	.weatherElementsSubContainer {
 		grid-area: weatherElements;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		background-image: none;
+
 	}
 
 	.weatherCard {
@@ -400,8 +390,7 @@ svg {
 		display: grid;
 		grid-template-areas:
 			'dateTime dateTime dateTime dateTime'
-			' weatherIcon  temp weatherElements weatherElements'
-		;
+			' weatherIcon  temp weatherElements weatherElements';
 		justify-content: space-around;
 		align-items: center;
 		white-space: nowrap;
@@ -418,9 +407,5 @@ svg {
 	#scroll-left,
 	#scroll-right {
 		display: none;
-	}
-
-	h1 {
-		font-size: 4rem;
 	}
 }

@@ -13,6 +13,7 @@ Vue.createApp({
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
+            divider: 4,
             weatherDayIcons: {
                 0: '/WeatherApp/resources/weatherIcons/clear-day.svg',
                 1: '/WeatherApp/resources/weatherIcons/partly-cloudy-day.svg',
@@ -83,14 +84,14 @@ Vue.createApp({
             svg.createDiagram(this.weather);
             console.log('SVG')
         },
-        scroll(scrollRight = false, divider = 4) {
+        scroll(scrollRight = false) {
             let element = document.querySelector('.weatherDeck');
             let scroll;
             if(scrollRight){
-                scroll = element.scrollLeft + element.scrollWidth / divider;
+                scroll = element.scrollLeft + element.scrollWidth / this.divider;
             }
             else{
-                scroll = element.scrollLeft - element.scrollWidth / divider;
+                scroll = element.scrollLeft - element.scrollWidth / this.divider;
             }
             element.scrollTo({
                 top: 0,
@@ -113,6 +114,7 @@ Vue.createApp({
             this.selectOption('hourly');
             const element = document.getElementById(dateId);
             element.scrollIntoView({ behavior: "smooth" });
+            this.showLeftScroll = false
         },
         getDayName(date) {
             const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -193,12 +195,14 @@ Vue.createApp({
                 dailyContainer.classList.remove('hidden');
                 hourlyPresentation.classList.add('hidden');
                 this.showRightScroll = true;
+                this.divider = 1;
             }
             else {
                 this.selectedOption = 14;
                 dailyContainer.classList.remove('hidden');
                 hourlyPresentation.classList.add('hidden');
                 this.showRightScroll = true;
+                this.divider = 4;
 
             }
         },
@@ -252,8 +256,26 @@ Vue.createApp({
     },
     mounted() {
 
+        this.userData = getSavedUserData();
         // this.fetchData();
         // Call the function to create SVG when the component is mounted
         //this.createNewSvg();
+    },
+    updated() {
+        // Spara användardata till localStorage när komponenten uppdateras
+        saveUserData(this.userData);
     }
 }).mount('#app');
+
+function getSavedUserData() {
+    const userDataJSON = localStorage.getItem('userData');
+    try {
+        return userDataJSON ? JSON.parse(userDataJSON) : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+function saveUserData(userData) {
+    localStorage.setItem('userData', JSON.stringify(userData));
+}
