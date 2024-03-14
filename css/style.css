@@ -91,6 +91,10 @@ button {
 	background-color: rgb(255, 255, 255);
 }
 
+button img {
+	width: 16px;
+	}
+
 button:disabled,
 button:active {
 	background-color: #cbe6f8;
@@ -270,7 +274,6 @@ th {
 	margin: 1.5rem 0;
 }
 
-
 svg {
 	width: 600px;
 	background: white;
@@ -354,10 +357,7 @@ svg {
 	#scroll-right {
 		display: none;
 	}
-
-
 }
-
 
 @media screen and (max-width: 520px) {
 
@@ -383,7 +383,6 @@ svg {
 		grid-area: weatherElements;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-
 	}
 
 	.weatherCard {
