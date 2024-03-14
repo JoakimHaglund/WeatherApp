@@ -31,10 +31,10 @@
 
         <ul id="presentOptions" v-if="hasData">
             <li>
-                <button @click="selectOption('hourly')" :disabled="selectedOption == 1">Daily Forecast</button>
+                <button @click="selectOption('hourly')" :disabled="selectedOption == true">Daily Forecast</button>
             </li>
             <li>
-                <button @click="selectOption('two-weeks')" :disabled="selectedOption == 14">14-Day Forecast</button>
+                <button @click="selectOption('two-weeks')" :disabled="selectedOption == false">14-Day Forecast</button>
             </li>
 
 
@@ -109,9 +109,9 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div id="svg">
-
+        <div id="svg">
+    
+        </div>
     </div>
 
 </html>

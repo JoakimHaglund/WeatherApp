@@ -54,6 +54,17 @@ h1 {
 	align-items: center;
 	opacity: 0.9;
 }
+svg{
+	width: 800px;
+	margin: 8rem;
+	background-color: #6f9bb8;
+}
+svg text{
+	font-size: 5px !important;
+}
+#svg{
+	margin: auto;
+}
 
 /*
 ======================================================================
@@ -274,10 +285,6 @@ th {
 	margin: 1.5rem 0;
 }
 
-svg {
-	width: 600px;
-	background: white;
-}
 
 #scroll-right img {
 	margin-left: 60%;

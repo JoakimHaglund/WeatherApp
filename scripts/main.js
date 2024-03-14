@@ -174,7 +174,7 @@ Vue.createApp({
                     let option = this.selectedOption === true ? 'hourly' : 'weekly';
                     console.log(option);
                     this.selectOption(option)
-                    // this.createNewSvg();
+                    this.createNewSvg();
                 });
             });
 
