@@ -171,7 +171,7 @@ Vue.createApp({
                     console.log(weatherData)
                     this.weather = weatherData;
                     this.hasData = true;
-                    let option = this.selectedOption === true ? 'hourly' : false;
+                    let option = this.selectedOption === true ? 'hourly' : 'weekly';
                     console.log(option);
                     this.selectOption(option)
                     // this.createNewSvg();
@@ -197,6 +197,7 @@ Vue.createApp({
                 this.showRightScroll = true;
                 this.divider = 4;
             }
+            console.log(this.selectedOption)
         },
         weatherOneDay(date) {
             if (this.hasData) {
@@ -235,17 +236,11 @@ Vue.createApp({
                 const {location, country } = JSON.parse(storedLocation);
                 this.location = location;
                 this.country = country;
-                this.hasData = true;
             }
         }
     },
 
     computed: {
-        filteredForecastData() {
-            return this.weather.daily.slice(0, this.selectedOption); // Filter the forecast data based on the selected option
-
-        },
-
         style(value) {
             value = value + 180;
             return {

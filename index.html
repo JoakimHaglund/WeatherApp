@@ -48,7 +48,7 @@
                 <img src="resources/double-arrow-left-icon.svg" alt="">
             </div>
             <!--weather.daily[index] display template-->
-            <article class="weatherCard borderNshadow" v-if="hasData" v-for="(value, index) in filteredForecastData"
+            <article class="weatherCard borderNshadow" v-if="hasData" v-for="(value, index) in weather.daily"
                 @click="scrollTo(value.time)">
                 <section class="dateTime">
                     <h3 class="itemDate">
