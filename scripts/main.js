@@ -178,6 +178,7 @@ Vue.createApp({
                 });
             });
 
+            localStorage.setItem('lastSearchedLocation', this.searchLocation);
         },
 
         selectOption(option) {
@@ -230,8 +231,24 @@ Vue.createApp({
                 dates = dates.filter((date, index, array) => array.indexOf(date) === index);
                 return dates;
             }
+        },
+        saveToLocalStorage() {
+            localStorage.setItem('location', JSON.stringify({
+                location: this.location,
+                country: this.country
+            }));
+        },
+        retrieveFromLocalStorage(){
+            const storedLocation = localStorage.getItem('location');
+            if (storedLocation) {
+                const {location, country } = JSON.parse(storedLocation);
+                this.location = location;
+                this.country = country;
+                this.hasData = true;
+            }
         }
     },
+
     computed: {
         filteredForecastData() {
             return this.weather.daily.slice(0, this.selectedOption); // Filter the forecast data based on the selected option
@@ -256,26 +273,17 @@ Vue.createApp({
     },
     mounted() {
 
-        this.userData = getSavedUserData();
+        this.retrieveFromLocalStorage();
+
+        const lastSearchedLocation = localStorage.getItem('lastSearchedLocation');
+    
+        // Om det finns en sparad plats, sätt den som värdet för inputobjektet
+        if (lastSearchedLocation) {
+            this.searchLocation = lastSearchedLocation;
+        }
         // this.fetchData();
         // Call the function to create SVG when the component is mounted
         //this.createNewSvg();
-    },
-    updated() {
-        // Spara användardata till localStorage när komponenten uppdateras
-        saveUserData(this.userData);
     }
+
 }).mount('#app');
-
-function getSavedUserData() {
-    const userDataJSON = localStorage.getItem('userData');
-    try {
-        return userDataJSON ? JSON.parse(userDataJSON) : {};
-    } catch (e) {
-        return {};
-    }
-}
-
-function saveUserData(userData) {
-    localStorage.setItem('userData', JSON.stringify(userData));
-}
