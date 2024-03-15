@@ -118,7 +118,6 @@ Vue.createApp({
             this.showLeftScroll = !isStartOfScroll;
         },
         scrollTo(dateId) {
-            console.log(dateId);
             this.selectOption('hourly');
             const element = document.getElementById(dateId);
             this.showLeftScroll = false
@@ -167,7 +166,6 @@ Vue.createApp({
                 'format': 'json'
             });
             api.fetchLocationInfo(this.searchLocation).then(locationData => {
-                console.log(locationData)
                 this.location = locationData[0].name;
                 this.country = locationData[0].country;
                 document.querySelector('.showLocation').classList.remove('hidden');
@@ -175,12 +173,9 @@ Vue.createApp({
                 api.fetchData(
                     locationData[0].latitude, locationData[0].longitude
                 ).then(weatherData => {
-                    console.log('weatherData')
-                    console.log(weatherData)
                     this.weather = weatherData;
                     this.hasData = true;
                     let option = this.selectedOption === 1 ? 'hourly' :  this.selectedOption === 2 ? 'two-weeks' : 3;
-                    console.log(option);
                     this.selectOption(option)
                     this.createNewSvg();
                 });
@@ -217,7 +212,6 @@ Vue.createApp({
                 svgWrapper.classList.remove('hidden');
 
             }
-            console.log(this.selectedOption)
         },
         weatherOneDay(date) {
             if (this.hasData) {
@@ -261,7 +255,6 @@ Vue.createApp({
                     console.error('Error parsing retrieved data:', error);
                 }
             }
-            console.log('retrieve stored location');
         },
         modifyLocalStorage(){
             let alreadySavedLocation = false;
@@ -280,7 +273,6 @@ Vue.createApp({
             this.updateHeartIcon();
         },
         updateHeartIcon(){
-            console.log('heart');
             for (let i = 0; i < this.storedLocations.length; i++){
                 if(this.searchLocation == this.storedLocations[i]){
                     this.heartIcon = this.heartFilled

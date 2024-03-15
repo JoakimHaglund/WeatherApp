@@ -83,8 +83,7 @@ export async function fetchData(latitude, longitude) {
             throw new Error('Failed to fetch data');
         }
 
-        const data = await response.json();
-        console.log(data);   
+        const data = await response.json(); 
       
         return handleData(data); 
     } catch (err) {
