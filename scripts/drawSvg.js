@@ -37,12 +37,12 @@ export function createDiagram(weather) {
   createLines(offsetWidth, offsetHeight, 10).forEach(element => {
     weatherdata.append(element);
   });
-  weatherdata.append(createPolyline(tempData, 0.5, offsetHeight, offsetWidth / tempData.length, 4, 'red'));
-  weatherdata.append(createPolyline(windData, 0.5, offsetHeight, offsetWidth / windData.length, 4, 'purple'));
-
   createPercipitationColumns(precipitationData, offsetWidth, offsetHeight, 5, 1, '#40b1fd').forEach(element => {
     weatherdata.append(element);
   });
+  weatherdata.append(createPolyline(tempData, 0.5, offsetHeight, offsetWidth / tempData.length, 4, 'red'));
+  weatherdata.append(createPolyline(windData, 0.5, offsetHeight, offsetWidth / windData.length, 4, 'purple'));
+
   createtext(['-15', '-10', '-5', '0', '5', '10', '15', '20', '25', '°C'], 13, offsetHeight, 10, 'end', '#f11010').forEach(element => {
     svg.append(element);
   });
