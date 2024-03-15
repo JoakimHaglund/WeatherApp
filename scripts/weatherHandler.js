@@ -1,6 +1,3 @@
-async function callApi() {
-
-}
 export function fullCallParams(latitude, longitude) {
     return new URLSearchParams({
         'latitude': latitude,
@@ -33,7 +30,6 @@ export function dailyCallParams(latitude, longitude) {
     return new URLSearchParams({
         'latitude': latitude,
         'longitude': longitude,
-
         'forecast_days': 14,
     }).toString();
 }
@@ -93,7 +89,7 @@ export async function fetchData(latitude, longitude) {
         return handleData(data); 
     } catch (err) {
         console.error(err);
-        throw err; // Re-throw the error to be handled by the caller if needed
+        throw err; 
     }
 }
 function handleData(weatherData) {

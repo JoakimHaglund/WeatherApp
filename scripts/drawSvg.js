@@ -55,15 +55,15 @@ export function createDiagram(weather) {
   svg.append(weatherdata);
   return svg; // Return the SVG container
 }
- function createSvgElement(tagName) {
+function createSvgElement(tagName) {
   return document.createElementNS('http://www.w3.org/2000/svg', tagName);
 }
- function createSvg(width, height) {
+function createSvg(width, height) {
   const svg = createSvgElement('svg');
   svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
   return svg;
 };
- function createSvgRect(x, y, width, height, color) {
+function createSvgRect(x, y, width, height, color) {
   const rect = createSvgElement('rect');
   rect.setAttribute('width', width);
   rect.setAttribute('height', height);
@@ -72,7 +72,7 @@ export function createDiagram(weather) {
   rect.setAttribute('fill', color);
   return rect;
 };
- function createPolyline(points, linewidth, height, step, rows, color) {
+function createPolyline(points, linewidth, height, step, rows, color) {
   const polyline = createSvgElement('polyline');
   let pointString = '';
   let currentStep = step / 2; //place in middle of colum
@@ -87,7 +87,7 @@ export function createDiagram(weather) {
   polyline.setAttribute('points', pointString);
   return polyline;
 };
- function createColumns(width, height, columnColor) {
+function createColumns(width, height, columnColor) {
   const columnWidth = width / 14; // Assuming 14 columns
   const opacity = 0.3;
   let columns = [];
@@ -115,7 +115,7 @@ function createPercipitationColumns(Data, width, height, heightStep, offset, col
   }
   return columns;
 };
- function createLines(width, height, lineamount) {
+function createLines(width, height, lineamount) {
   let lineHeight = 0.5;
   let opacity = 0.3;
   let lines = [];
@@ -137,7 +137,7 @@ function createPercipitationColumns(Data, width, height, heightStep, offset, col
 
   return lines;
 };
- function createtext(text, xPos, height, lineamount, textAlignment, color) {
+function createtext(text, xPos, height, lineamount, textAlignment, color) {
   let fontSize = 5
   let texts = [];
   let step = height / (lineamount);
@@ -160,17 +160,17 @@ function createPercipitationColumns(Data, width, height, heightStep, offset, col
 
   return texts;
 };
- function createHorizontalText(text, yPos, width, color) {
+function createHorizontalText(text, yPos, width, color) {
   let fontSize = 5
   let texts = [];
-  let step = (width / text.length) ;
+  let step = (width / text.length);
   let currentStep = step / 2;
   // Loopa genom arrayen och skapa varje linje
   for (let i = 0; i < text.length; i++) {
     let textElement = createSvgElement('text');
 
     textElement.textContent = text[i];
-    textElement.setAttribute('x', currentStep +15);
+    textElement.setAttribute('x', currentStep + 15);
     textElement.setAttribute('y', yPos);
     textElement.setAttribute("font-family", '"Montserrat", Roboto, Arial, Helvetica, sans-serif');
     textElement.setAttribute("font-size", fontSize + 'px');

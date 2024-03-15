@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="en">
 
 <head>
     <title>HMS Weather Forecast</title>
@@ -23,10 +23,14 @@
     <div id="app">
         <form @submit.prevent="fetchData">
 
+            <button type="button" id="heartButton" @click="modifyLocalStorage()"><img :src="heartIcon" alt="Heart"></button>
             <label for="location-input"></label>
-            <input type="text" placeholder="Search here" v-model="searchLocation" id="location-input">
+            <input type="text" placeholder="Search here" @input="updateHeartIcon()" v-model="searchLocation" id="location-input" list="locationDropdown" autocomplete="off">
+            <datalist id="locationDropdown">
+                <option v-for="location in storedLocations">{{location}}</option>
+                </datalist> 
 
-            <button type="submit"><img src="resources/magnifying-glass-svgrepo-com.svg" alt="magnifying glass"></button>
+            <button type="submit" id="searchButton"><img src="resources/magnifying-glass-svgrepo-com.svg" alt="Magnifying glass"></button>
         </form>
 
         <ul id="presentOptions" v-if="hasData">
@@ -47,7 +51,7 @@
         </div>
         <div class="weatherDeck hidden" @scroll="handleScroll" ref="scrollContainer">
             <div id="scroll-left" class="scroll-buttons" @click="scroll()" v-show="showLeftScroll">
-                <img src="resources/double-arrow-left-icon.svg" alt="">
+                <img src="resources/double-arrow-left-icon.svg" alt="Left Scroll Button">
             </div>
             <!--weather.daily[index] display template-->
             <article class="weatherCard borderNshadow" v-if="hasData" v-for="(value, index) in weather.daily"
@@ -83,7 +87,7 @@
                 </div>
             </article>
             <div id="scroll-right" class="scroll-buttons" @click="scroll(true)" v-show="showRightScroll">
-                <img src="resources/double-arrow-right-icon.svg" alt="">
+                <img src="resources/double-arrow-right-icon.svg" alt="Right Scroll Button">
             </div>
         </div>
         <div id="hourlyPresentation" class="hidden">

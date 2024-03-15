@@ -56,7 +56,7 @@ h1 {
 }
 svg{
 	width: 1200px;
-	margin: 5rem;
+	
 	background-image: linear-gradient(to bottom,#a9d8f7 40%, #ffe91f 100%);
 	border-radius: 6px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -67,6 +67,7 @@ svg text{
 #svgWrapper{
 	display: flex;
   	justify-content: center;
+	margin-bottom: 6rem;
 }
 
 /*
@@ -108,7 +109,6 @@ button {
 
 button img {
 	width: 16px;
-
 	}
 
 button:disabled,
@@ -186,6 +186,7 @@ table .weatherIcons {
 	scrollbar-width: none;
 	/* Firefox */
 	border-radius: 6px;
+	margin-bottom: 6rem;
 }
 
 #hourlyPresentation {
