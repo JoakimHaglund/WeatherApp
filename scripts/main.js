@@ -14,7 +14,6 @@ Vue.createApp({
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
-            divider: 4,
             heartIcon: '/WeatherApp/resources/heart-empty.svg',
             heartEmpty: '/WeatherApp/resources/heart-empty.svg',
             heartFilled: '/WeatherApp/resources/heart-filled.svg',
@@ -88,18 +87,18 @@ Vue.createApp({
             let svgWrapper = document.querySelector('#svgWrapper');
             while (svgWrapper.firstChild) {
                 svgWrapper.removeChild(svgWrapper.firstChild);
-              }
-              let svgElement = svg.createDiagram(this.weather);
-              svgWrapper.appendChild(svgElement);
+            }
+            let svgElement = svg.createDiagram(this.weather);
+            svgWrapper.appendChild(svgElement);
         },
         scroll(scrollRight = false) {
             let element = document.querySelector('.weatherDeck');
             let scroll;
-            if(scrollRight){
-                scroll = element.scrollLeft + element.scrollWidth / this.divider;
+            if (scrollRight) {
+                scroll = element.scrollLeft + element.scrollWidth / 4;
             }
-            else{
-                scroll = element.scrollLeft - element.scrollWidth / this.divider;
+            else {
+                scroll = element.scrollLeft - element.scrollWidth / 4;
             }
             element.scrollTo({
                 top: 0,
@@ -159,12 +158,6 @@ Vue.createApp({
             return this.weatherDayIcons[weatherCode];
         },
         fetchData() {
-            const geocodingParams = new URLSearchParams({
-                'name': this.searchLocation,
-                'count': '10',
-                'language': 'en',
-                'format': 'json'
-            });
             api.fetchLocationInfo(this.searchLocation).then(locationData => {
                 this.location = locationData[0].name;
                 this.country = locationData[0].country;
@@ -175,7 +168,7 @@ Vue.createApp({
                 ).then(weatherData => {
                     this.weather = weatherData;
                     this.hasData = true;
-                    let option = this.selectedOption === 1 ? 'hourly' :  this.selectedOption === 2 ? 'two-weeks' : 3;
+                    let option = this.selectedOption === 1 ? 'hourly' : this.selectedOption === 2 ? 'two-weeks' : 3;
                     this.selectOption(option)
                     this.createNewSvg();
                 });
@@ -197,20 +190,18 @@ Vue.createApp({
                 svgWrapper.classList.add('hidden');
                 hourlyPresentation.classList.remove('hidden');
             }
-            else if (option === 'two-weeks'){
+            else if (option === 'two-weeks') {
                 this.selectedOption = 2;
                 hourlyPresentation.classList.add('hidden');
                 svgWrapper.classList.add('hidden');
                 dailyContainer.classList.remove('hidden');
                 this.showRightScroll = true;
-                this.divider = 4;
             }
             else {
                 this.selectedOption = 3;
                 dailyContainer.classList.add('hidden');
                 hourlyPresentation.classList.add('hidden');
                 svgWrapper.classList.remove('hidden');
-
             }
         },
         weatherOneDay(date) {
@@ -239,7 +230,7 @@ Vue.createApp({
             }
         },
 
-        retrieveFromLocalStorage(){
+        retrieveFromLocalStorage() {
             const locations = localStorage.getItem('location');
             if (locations) {
                 try {
@@ -256,29 +247,29 @@ Vue.createApp({
                 }
             }
         },
-        modifyLocalStorage(){
+        modifyLocalStorage() {
             let alreadySavedLocation = false;
-            for (let i = 0; i < this.storedLocations.length; i++){
-                if (this.searchLocation == this.storedLocations[i]){
+            for (let i = 0; i < this.storedLocations.length; i++) {
+                if (this.searchLocation == this.storedLocations[i]) {
                     alreadySavedLocation = true;
                     this.storedLocations.splice(i, 1);
                     break;
                 }
             }
-            if(!alreadySavedLocation && this.searchLocation){
+            if (!alreadySavedLocation && this.searchLocation) {
                 this.storedLocations.push(this.searchLocation);
             }
             localStorage.setItem('location', JSON.stringify(this.storedLocations));
-            
+
             this.updateHeartIcon();
         },
-        updateHeartIcon(){
-            for (let i = 0; i < this.storedLocations.length; i++){
-                if(this.searchLocation == this.storedLocations[i]){
+        updateHeartIcon() {
+            for (let i = 0; i < this.storedLocations.length; i++) {
+                if (this.searchLocation == this.storedLocations[i]) {
                     this.heartIcon = this.heartFilled
                     break;
                 }
-                else{
+                else {
                     this.heartIcon = this.heartEmpty;
                 }
             }
@@ -302,7 +293,7 @@ Vue.createApp({
             }
         }
     },
-    mounted() {   
+    mounted() {
         this.retrieveFromLocalStorage();
     }
 

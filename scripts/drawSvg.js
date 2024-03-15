@@ -55,14 +55,17 @@ export function createDiagram(weather) {
   svg.append(weatherdata);
   return svg; // Return the SVG container
 }
+
 function createSvgElement(tagName) {
   return document.createElementNS('http://www.w3.org/2000/svg', tagName);
 }
+
 function createSvg(width, height) {
   const svg = createSvgElement('svg');
   svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
   return svg;
 };
+
 function createSvgRect(x, y, width, height, color) {
   const rect = createSvgElement('rect');
   rect.setAttribute('width', width);
@@ -72,6 +75,7 @@ function createSvgRect(x, y, width, height, color) {
   rect.setAttribute('fill', color);
   return rect;
 };
+
 function createPolyline(points, linewidth, height, step, rows, color) {
   const polyline = createSvgElement('polyline');
   let pointString = '';
@@ -87,6 +91,7 @@ function createPolyline(points, linewidth, height, step, rows, color) {
   polyline.setAttribute('points', pointString);
   return polyline;
 };
+
 function createColumns(width, height, columnColor) {
   const columnWidth = width / 14; // Assuming 14 columns
   const opacity = 0.3;
@@ -99,6 +104,7 @@ function createColumns(width, height, columnColor) {
   }
   return columns;
 };
+
 function createPercipitationColumns(Data, width, height, heightStep, offset, columnColor) {
   const columnWidth = width / Data.length; // Assuming 14 columns
   const opacity = 0.8;
@@ -115,6 +121,7 @@ function createPercipitationColumns(Data, width, height, heightStep, offset, col
   }
   return columns;
 };
+
 function createLines(width, height, lineamount) {
   let lineHeight = 0.5;
   let opacity = 0.3;
@@ -137,6 +144,7 @@ function createLines(width, height, lineamount) {
 
   return lines;
 };
+
 function createtext(text, xPos, height, lineamount, textAlignment, color) {
   let fontSize = 5
   let texts = [];
@@ -160,6 +168,7 @@ function createtext(text, xPos, height, lineamount, textAlignment, color) {
 
   return texts;
 };
+
 function createHorizontalText(text, yPos, width, color) {
   let fontSize = 5
   let texts = [];

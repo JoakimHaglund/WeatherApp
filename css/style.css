@@ -20,7 +20,7 @@ html {
 
 body {
 	margin: auto;
-	
+
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -54,19 +54,22 @@ h1 {
 	align-items: center;
 	opacity: 0.9;
 }
-svg{
+
+svg {
 	width: 1200px;
-	
-	background-image: linear-gradient(to bottom,#a9d8f7 40%, #ffe91f 100%);
+
+	background-image: linear-gradient(to bottom, #a9d8f7 40%, #ffe91f 100%);
 	border-radius: 6px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-svg text{
+
+svg text {
 	font-size: 5px !important;
 }
-#svgWrapper{
+
+#svgWrapper {
 	display: flex;
-  	justify-content: center;
+	justify-content: center;
 	margin-bottom: 6rem;
 }
 
@@ -109,7 +112,7 @@ button {
 
 button img {
 	width: 16px;
-	}
+}
 
 button:disabled,
 button:active {
@@ -326,11 +329,13 @@ th {
 	background-image: linear-gradient(white, #a9d8f7);
 	border-radius: 6px;
 }
+
 @media screen and (max-width: 1200px) {
-	#svgWrapper{
+	#svgWrapper {
 		width: 100%;
 	}
-	svg{
+
+	svg {
 		width: 100%;
 		margin: 0;
 	}
@@ -396,10 +401,21 @@ th {
 		display: block;
 	}
 
-	.dateTime {grid-area: dateTime;}
-	.temp {grid-area: temp;}
-	.weatherIcon {grid-area: weatherIcon;}
-	.weatherIcons {width: 50px;}
+	.dateTime {
+		grid-area: dateTime;
+	}
+
+	.temp {
+		grid-area: temp;
+	}
+
+	.weatherIcon {
+		grid-area: weatherIcon;
+	}
+
+	.weatherIcons {
+		width: 50px;
+	}
 
 	.weatherElementsSubContainer {
 		grid-area: weatherElements;

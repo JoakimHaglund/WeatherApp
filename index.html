@@ -23,14 +23,17 @@
     <div id="app">
         <form @submit.prevent="fetchData">
 
-            <button type="button" id="heartButton" @click="modifyLocalStorage()"><img :src="heartIcon" alt="Heart"></button>
+            <button type="button" id="heartButton" @click="modifyLocalStorage()"><img :src="heartIcon"
+                    alt="Heart"></button>
             <label for="location-input"></label>
-            <input type="text" placeholder="Search here" @input="updateHeartIcon()" v-model="searchLocation" id="location-input" list="locationDropdown" autocomplete="off">
+            <input type="text" placeholder="Search here" @input="updateHeartIcon()" v-model="searchLocation"
+                id="location-input" list="locationDropdown" autocomplete="off">
             <datalist id="locationDropdown">
                 <option v-for="location in storedLocations">{{location}}</option>
-                </datalist> 
+            </datalist>
 
-            <button type="submit" id="searchButton"><img src="resources/magnifying-glass-svgrepo-com.svg" alt="Magnifying glass"></button>
+            <button type="submit" id="searchButton"><img src="resources/magnifying-glass-svgrepo-com.svg"
+                    alt="Magnifying glass"></button>
         </form>
 
         <ul id="presentOptions" v-if="hasData">
@@ -116,7 +119,7 @@
             </table>
         </div>
         <div id="svgWrapper" class="hidden">
-    
+
         </div>
     </div>
 

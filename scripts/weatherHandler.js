@@ -82,15 +82,15 @@ export async function fetchData(latitude, longitude) {
         if (!response.ok) {
             throw new Error('Failed to fetch data');
         }
+        const data = await response.json();
+        return handleData(data);
 
-        const data = await response.json(); 
-      
-        return handleData(data); 
     } catch (err) {
         console.error(err);
-        throw err; 
+        throw err;
     }
 }
+
 function handleData(weatherData) {
     let weather = {
         daily: [],
