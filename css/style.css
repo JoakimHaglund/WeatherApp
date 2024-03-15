@@ -20,7 +20,7 @@ html {
 
 body {
 	margin: auto;
-	max-width: 1080px;
+	
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
@@ -55,15 +55,18 @@ h1 {
 	opacity: 0.9;
 }
 svg{
-	width: 800px;
-	margin: 8rem;
-	background-color: #6f9bb8;
+	width: 1200px;
+	margin: 5rem;
+	background-image: linear-gradient(to bottom,#a9d8f7 40%, #ffe91f 100%);
+	border-radius: 6px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 svg text{
 	font-size: 5px !important;
 }
-#svg{
-	margin: auto;
+#svgWrapper{
+	display: flex;
+  	justify-content: center;
 }
 
 /*
@@ -100,10 +103,12 @@ button {
 	box-shadow: 1px 1px 2px rgb(0, 0, 0);
 	border: none;
 	background-color: rgb(255, 255, 255);
+	height: 100%;
 }
 
 button img {
 	width: 16px;
+
 	}
 
 button:disabled,
@@ -319,6 +324,15 @@ th {
 
 	background-image: linear-gradient(white, #a9d8f7);
 	border-radius: 6px;
+}
+@media screen and (max-width: 1200px) {
+	#svgWrapper{
+		width: 100%;
+	}
+	svg{
+		width: 100%;
+		margin: 0;
+	}
 }
 
 @media screen and (max-width: 950px) {

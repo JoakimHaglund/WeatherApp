@@ -9,7 +9,7 @@ export function createDiagram(weather) {
   const svg = createSvg(fullWidth, fullHeight);
 
   const background = createSvgRect(0, 0, offsetWidth, offsetHeight, 'white'); // Assuming background covers the entire SVG area
-
+  background.setAttribute('fill-opacity', 0.4);
   let weatherdata = createSvgElement('g');
   weatherdata.setAttribute('transform', 'translate(' + offsetX / 2 + ',' + offsety + ')')
   weatherdata.append(background);
@@ -40,13 +40,13 @@ export function createDiagram(weather) {
   weatherdata.append(createPolyline(tempData, 0.5, offsetHeight, offsetWidth / tempData.length, 4, 'red'));
   weatherdata.append(createPolyline(windData, 0.5, offsetHeight, offsetWidth / windData.length, 4, 'purple'));
 
-  createPercipitationColumns(precipitationData, offsetWidth, offsetHeight, 5, 1, 'blue').forEach(element => {
+  createPercipitationColumns(precipitationData, offsetWidth, offsetHeight, 5, 1, '#40b1fd').forEach(element => {
     weatherdata.append(element);
   });
-  createtext(['-15', '-10', '-5', '0', '5', '10', '15', '20', '25', '°C'], 13, offsetHeight, 10, 'end', 'black').forEach(element => {
+  createtext(['-15', '-10', '-5', '0', '5', '10', '15', '20', '25', '°C'], 13, offsetHeight, 10, 'end', '#f11010').forEach(element => {
     svg.append(element);
   });
-  createtext(['2', '4', '6', '8', '10', '12', '14', '26', '28', 'mm'], fullWidth - 13, offsetHeight, 10, 'start', 'blue').forEach(element => {
+  createtext(['2', '4', '6', '8', '10', '12', '14', '26', '28', 'mm'], fullWidth - 13, offsetHeight, 10, 'start', '#0370b8').forEach(element => {
     svg.append(element);
   });
   createHorizontalText(timeData, 8, offsetWidth, 'black').forEach(element => {
@@ -59,13 +59,10 @@ export function createDiagram(weather) {
   return document.createElementNS('http://www.w3.org/2000/svg', tagName);
 }
  function createSvg(width, height) {
-  let element = document.querySelector('#svg');
   const svg = createSvgElement('svg');
   svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
-  element.appendChild(svg);
   return svg;
-}
-
+};
  function createSvgRect(x, y, width, height, color) {
   const rect = createSvgElement('rect');
   rect.setAttribute('width', width);
@@ -74,8 +71,7 @@ export function createDiagram(weather) {
   rect.setAttribute('y', y);
   rect.setAttribute('fill', color);
   return rect;
-}
-
+};
  function createPolyline(points, linewidth, height, step, rows, color) {
   const polyline = createSvgElement('polyline');
   let pointString = '';
@@ -90,7 +86,7 @@ export function createDiagram(weather) {
   polyline.setAttribute('stroke-width', 0.5);
   polyline.setAttribute('points', pointString);
   return polyline;
-}
+};
  function createColumns(width, height, columnColor) {
   const columnWidth = width / 14; // Assuming 14 columns
   const opacity = 0.3;
@@ -102,10 +98,10 @@ export function createDiagram(weather) {
     columns.push(column);
   }
   return columns;
-}
+};
 function createPercipitationColumns(Data, width, height, heightStep, offset, columnColor) {
   const columnWidth = width / Data.length; // Assuming 14 columns
-  const opacity = 0.3;
+  const opacity = 0.8;
   let columns = [];
   for (let i = 0; i < Data.length; i++) {
     let column = createSvgRect(
@@ -118,8 +114,7 @@ function createPercipitationColumns(Data, width, height, heightStep, offset, col
     columns.push(column);
   }
   return columns;
-}
-
+};
  function createLines(width, height, lineamount) {
   let lineHeight = 0.5;
   let opacity = 0.3;
@@ -165,7 +160,6 @@ function createPercipitationColumns(Data, width, height, heightStep, offset, col
 
   return texts;
 };
-
  function createHorizontalText(text, yPos, width, color) {
   let fontSize = 5
   let texts = [];

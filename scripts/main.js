@@ -9,7 +9,7 @@ Vue.createApp({
             location: '',
             country: '',
             weather: {},
-            selectedOption: false,
+            selectedOption: 2,
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
@@ -81,7 +81,14 @@ Vue.createApp({
 
     methods: {
         createNewSvg() {
-            svg.createDiagram(this.weather);
+            let svgWrapper = document.querySelector('#svgWrapper');
+        
+            // mörda barn
+            while (svgWrapper.firstChild) {
+                svgWrapper.removeChild(svgWrapper.firstChild);
+              }
+              let svgElement = svg.createDiagram(this.weather);
+              svgWrapper.appendChild(svgElement);
             console.log('SVG')
         },
         scroll(scrollRight = false) {
@@ -171,7 +178,7 @@ Vue.createApp({
                     console.log(weatherData)
                     this.weather = weatherData;
                     this.hasData = true;
-                    let option = this.selectedOption === true ? 'hourly' : 'weekly';
+                    let option = this.selectedOption === 1 ? 'hourly' :  this.selectedOption === 2 ? 'two-weeks' : 3;
                     console.log(option);
                     this.selectOption(option)
                     this.createNewSvg();
@@ -184,18 +191,28 @@ Vue.createApp({
         selectOption(option) {
             let dailyContainer = document.querySelector('.weatherDeck');
             let hourlyPresentation = document.querySelector('#hourlyPresentation');
+            let svgWrapper = document.querySelector('#svgWrapper');
             dailyContainer.scrollLeft = 0;
             if (option === 'hourly') {
-                this.selectedOption = true;
+                this.selectedOption = 1;
                 dailyContainer.classList.add('hidden');
+                svgWrapper.classList.add('hidden');
                 hourlyPresentation.classList.remove('hidden');
             }
-            else {
-                this.selectedOption = false;
-                dailyContainer.classList.remove('hidden');
+            else if (option === 'two-weeks'){
+                this.selectedOption = 2;
                 hourlyPresentation.classList.add('hidden');
+                svgWrapper.classList.add('hidden');
+                dailyContainer.classList.remove('hidden');
                 this.showRightScroll = true;
                 this.divider = 4;
+            }
+            else {
+                this.selectedOption = 3;
+                dailyContainer.classList.add('hidden');
+                hourlyPresentation.classList.add('hidden');
+                svgWrapper.classList.remove('hidden');
+
             }
             console.log(this.selectedOption)
         },
