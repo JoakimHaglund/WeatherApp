@@ -175,7 +175,6 @@ Vue.createApp({
             });
 
             localStorage.setItem('lastSearchedLocation', this.searchLocation);
-            this.searchLocation = '';
             this.updateHeartIcon();
         },
 
