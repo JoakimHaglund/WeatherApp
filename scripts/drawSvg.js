@@ -13,19 +13,12 @@ export function createDiagram(weather) {
   let weatherdata = createSvgElement('g');
   weatherdata.setAttribute('transform', 'translate(' + offsetX / 2 + ',' + offsety + ')')
   weatherdata.append(background);
-  let tempData = [];
-  weather.daily.forEach(daily => {
-    tempData.push(daily.temp);
-  });
-  let windData = [];
-  weather.daily.forEach(daily => {
-    windData.push(daily.wind_speed);
-  });
-  let precipitationData = [];
-  weather.daily.forEach(daily => {
-    precipitationData.push(daily.precipitation);
-  });
+
+  let tempData = getArrayFromObject(weather.daily, 'temp');
+  let windData = getArrayFromObject(weather.daily, 'wind_speed');
+  let precipitationData = getArrayFromObject(weather.daily, 'precipitation');
   let timeData = [];
+
   weather.daily.forEach(daily => {
     timeData.push(daily.time.replace(/\d\d\d\d-/i, ''));
   });
@@ -43,10 +36,10 @@ export function createDiagram(weather) {
   weatherdata.append(createPolyline(tempData, 0.5, offsetHeight, offsetWidth / tempData.length, 4, 'red'));
   weatherdata.append(createPolyline(windData, 0.5, offsetHeight, offsetWidth / windData.length, 4, 'purple'));
 
-  createtext(['-15', '-10', '-5', '0', '5', '10', '15', '20', '25', '°C'], 13, offsetHeight, 10, 'end', '#f11010').forEach(element => {
+  createVerticalText(['-15', '-10', '-5', '0', '5', '10', '15', '20', '25', '°C'], 13, offsetHeight, 10, 'end', '#f11010').forEach(element => {
     svg.append(element);
   });
-  createtext(['2', '4', '6', '8', '10', '12', '14', '26', '28', 'mm'], fullWidth - 13, offsetHeight, 10, 'start', '#0370b8').forEach(element => {
+  createVerticalText(['2', '4', '6', '8', '10', '12', '14', '26', '28', 'mm'], fullWidth - 13, offsetHeight, 10, 'start', '#0370b8').forEach(element => {
     svg.append(element);
   });
   createHorizontalText(timeData, 8, offsetWidth, 'black').forEach(element => {
@@ -55,9 +48,21 @@ export function createDiagram(weather) {
   svg.append(weatherdata);
   return svg; // Return the SVG container
 }
-
-function createSvgElement(tagName) {
-  return document.createElementNS('http://www.w3.org/2000/svg', tagName);
+function getArrayFromObject(input, value) {
+  let output = [];
+  input.forEach(current => {
+    output.push(current[value]);
+  });
+  return output;
+}
+function createSvgElement(tagName, attributes = null) {
+  let svgElement = document.createElementNS('http://www.w3.org/2000/svg', tagName);
+  if (attributes) {
+    Object.getOwnPropertyNames(attributes).forEach(key => {
+      svgElement.setAttribute(key, attributes[key]);
+    });
+  }
+  return svgElement;
 }
 
 function createSvg(width, height) {
@@ -67,17 +72,17 @@ function createSvg(width, height) {
 };
 
 function createSvgRect(x, y, width, height, color) {
-  const rect = createSvgElement('rect');
-  rect.setAttribute('width', width);
-  rect.setAttribute('height', height);
-  rect.setAttribute('x', x);
-  rect.setAttribute('y', y);
-  rect.setAttribute('fill', color);
+  const rect = createSvgElement('rect', {
+    'width': width,
+    'height': height,
+    'x': x,
+    'y': y,
+    'fill': color
+  });
   return rect;
 };
 
 function createPolyline(points, linewidth, height, step, rows, color) {
-  const polyline = createSvgElement('polyline');
   let pointString = '';
   let currentStep = step / 2; //place in middle of colum
   let offset = height / (rows + 1) * 2
@@ -85,10 +90,13 @@ function createPolyline(points, linewidth, height, step, rows, color) {
     pointString += currentStep + ',' + (height - linewidth - (point * rows + offset)) + ' ';
     currentStep += step;
   });
-  polyline.setAttribute('fill', 'none');
-  polyline.setAttribute('stroke', color);
-  polyline.setAttribute('stroke-width', 0.5);
-  polyline.setAttribute('points', pointString);
+  const polyline = createSvgElement('polyline', {
+    'fill': 'none',
+    'stroke': color,
+    'stroke-width': 0.5,
+    'points': pointString
+  });
+
   return polyline;
 };
 
@@ -131,37 +139,38 @@ function createLines(width, height, lineamount) {
   // Loopa genom arrayen och skapa varje linje
   for (let i = 0; i < lineamount; i++) {
     let CalculatedLineHeight = height - (step * i) - (step + (lineHeight))
-    let line = createSvgElement('line');
-    line.setAttribute('x1', 0);
-    line.setAttribute('x2', width);
-    line.setAttribute('y1', CalculatedLineHeight);
-    line.setAttribute('y2', CalculatedLineHeight);
-    line.setAttribute('stroke', 'black');
-    line.setAttribute('stroke-width', lineHeight);
-    line.setAttribute('stroke-opacity', opacity);
+    let line = createSvgElement('line', {
+      'x1': 0,
+      'x2': width,
+      'y1': CalculatedLineHeight,
+      'y2': CalculatedLineHeight,
+      'stroke': 'black',
+      'stroke-width': lineHeight,
+      'stroke-opacity': opacity,
+    });
     lines.push(line);
   }
 
   return lines;
 };
 
-function createtext(text, xPos, height, lineamount, textAlignment, color) {
+function createVerticalText(text, xPos, height, lineamount, textAlignment, color) {
   let fontSize = 5
   let texts = [];
   let step = height / (lineamount);
   // Loopa genom arrayen och skapa varje linje
   for (let i = 0; i < lineamount; i++) {
     let CalculatedLineHeight = height - (step * i) - (step) + 11
-    let textElement = createSvgElement('text');
-
+    let textElement = createSvgElement('text', {
+      'x': xPos,
+      'y': CalculatedLineHeight,
+      'font-family': "'Montserrat', Roboto, Arial, Helvetica, sans-serif",
+      'font-size': fontSize + 'px',
+      'font-weight': 'bolder',
+      'text-anchor': textAlignment,
+      'fill': color
+    });
     textElement.textContent = text[i];
-    textElement.setAttribute('x', xPos);
-    textElement.setAttribute('y', CalculatedLineHeight);
-    textElement.setAttribute("font-family", '"Montserrat", Roboto, Arial, Helvetica, sans-serif');
-    textElement.setAttribute("font-size", fontSize + 'px');
-    textElement.setAttribute("font-weight", 'bolder');
-    textElement.setAttribute('text-anchor', textAlignment);
-    textElement.setAttribute('fill', color)
 
     texts.push(textElement);
   }
@@ -176,17 +185,16 @@ function createHorizontalText(text, yPos, width, color) {
   let currentStep = step / 2;
   // Loopa genom arrayen och skapa varje linje
   for (let i = 0; i < text.length; i++) {
-    let textElement = createSvgElement('text');
-
+    let textElement = createSvgElement('text', {
+      'x': currentStep + 15,
+      'y': yPos,
+      'font-family': '"Montserrat", Roboto, Arial, Helvetica, sans-serif',
+      'font-size': fontSize + 'px',
+      'font-weight': 'bolder',
+      'text-anchor': 'middle',
+      'fill': color
+    });
     textElement.textContent = text[i];
-    textElement.setAttribute('x', currentStep + 15);
-    textElement.setAttribute('y', yPos);
-    textElement.setAttribute("font-family", '"Montserrat", Roboto, Arial, Helvetica, sans-serif');
-    textElement.setAttribute("font-size", fontSize + 'px');
-    textElement.setAttribute("font-weight", 'bolder');
-    textElement.setAttribute('text-anchor', 'middle');
-    textElement.setAttribute('fill', color)
-
     texts.push(textElement);
     currentStep += step;
   }
