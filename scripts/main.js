@@ -110,8 +110,9 @@ Vue.createApp({
         },
         handleScroll() {
             const scrollContainer = this.$refs.scrollContainer;
-            const isEndOfScroll = scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 120;
-            const isStartOfScroll = scrollContainer.scrollLeft <= 120;
+            const buttonElementWidth = 120;
+            const isEndOfScroll = scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - buttonElementWidth;
+            const isStartOfScroll = scrollContainer.scrollLeft <= buttonElementWidth;
 
             this.showRightScroll = !isEndOfScroll;
             this.showLeftScroll = !isStartOfScroll;
@@ -272,7 +273,7 @@ Vue.createApp({
                     this.heartIcon = this.heartEmpty;
                 }
             }
-            if(this.storedLocations.length == 0){
+            if (this.storedLocations.length == 0) {
                 this.heartIcon = this.heartEmpty;
             }
         },
