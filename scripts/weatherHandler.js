@@ -1,4 +1,4 @@
-export function fullCallParams(latitude, longitude) {
+function fullCallParams(latitude, longitude) {
     return new URLSearchParams({
         'latitude': latitude,
         'longitude': longitude,
@@ -23,13 +23,6 @@ export function fullCallParams(latitude, longitude) {
             'wind_gusts_10m_max',
             'weather_code'
         ],
-        'forecast_days': 14,
-    }).toString();
-}
-export function dailyCallParams(latitude, longitude) {
-    return new URLSearchParams({
-        'latitude': latitude,
-        'longitude': longitude,
         'forecast_days': 14,
     }).toString();
 }
