@@ -272,6 +272,9 @@ Vue.createApp({
                     this.heartIcon = this.heartEmpty;
                 }
             }
+            if(this.storedLocations.length == 0){
+                this.heartIcon = this.heartEmpty;
+            }
         },
     },
 
