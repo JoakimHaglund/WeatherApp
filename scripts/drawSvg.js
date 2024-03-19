@@ -39,7 +39,7 @@ export function createDiagram(weather) {
   createVerticalText(['-15', '-10', '-5', '0', '5', '10', '15', '20', '25', '°C'], 13, offsetHeight, 10, 'end', '#f11010').forEach(element => {
     svg.append(element);
   });
-  createVerticalText(['2', '4', '6', '8', '10', '12', '14', '26', '28', 'mm'], fullWidth - 13, offsetHeight, 10, 'start', '#0370b8').forEach(element => {
+  createVerticalText(['2', '4', '6', '8', '10', '12', '14', '16', '18', 'mm'], fullWidth - 13, offsetHeight, 10, 'start', '#0370b8').forEach(element => {
     svg.append(element);
   });
   createHorizontalText(timeData, 8, offsetWidth, 'black').forEach(element => {
