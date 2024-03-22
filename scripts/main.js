@@ -14,9 +14,9 @@ Vue.createApp({
             hasScrolledRight: false,
             showRightScroll: true,
             showLeftScroll: false,
-            heartIcon: 'WeatherApp/resources/heart-empty.svg',
-            heartEmpty: 'WeatherApp/resources/heart-empty.svg',
-            heartFilled: 'WeatherApp/resources/heart-filled.svg',
+            heartIcon: 'resources/heart-empty.svg',
+            heartEmpty: 'resources/heart-empty.svg',
+            heartFilled: 'resources/heart-filled.svg',
             weatherDayIcons: {
                 0: 'WeatherApp/resources/weatherIcons/clear-day.svg',
                 1: 'WeatherApp/resources/weatherIcons/partly-cloudy-day.svg',
