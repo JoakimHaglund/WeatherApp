@@ -27,7 +27,7 @@ body {
 	background-color: #a9d8f7;
 	flex-direction: column;
 	align-items: center;
-	background-image: url("../css/resources/background.svg");
+	background-image: url("../resources/background.svg");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
