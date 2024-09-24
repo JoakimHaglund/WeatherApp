@@ -1,69 +1,79 @@
-# Vue Application Project - Our Expectations
-
-These were our expectations for the Vue application project:
-
-## Overview
-We were tasked with developing a complete application using Vue based on our own ideas. The application was expected to be similar in scope to TodoMVC or slightly larger.
-
-## Requirements for Grade G
-
-### Functionality
-- Our app needed to be similar in size to TodoMVC or slightly larger
-- We were encouraged to use example/starter data from a separate JSON file or external API if needed
-- We were advised to avoid functionality requiring extensive user data input
-
-### Testing
-- We had to include 3-10 GUI tests using Playwright
-
-### JavaScript
-- We were required to use Vue (with React allowed as an alternative)
-- TypeScript was optional
-- Use of other libraries/frameworks required approval
-
-### CSS
-- We had to write CSS from scratch (no frameworks like Bootstrap allowed)
-- Our design needed to be responsive for mobile, tablet, and desktop
-- We were expected to create an original graphic design (we could use free fonts/images)
-
-### HTML
-- We had to write HTML from scratch
-- We were expected to use semantic HTML where appropriate
-
-### Code Style
-- We needed to maintain consistent indentation and formatting
-- We were expected to use clear naming conventions
-- We had to include appropriate comments
-- We needed to have a reasonable function/class division
-
-### Documentation
-- We had to write individual documentation (max 750 words for G, 1500 for VG)
-- Our documentation needed to address challenges, aspects we were proud of, and potential improvements
-
-### Video Presentation
-- We were required to create a 5-10 minute demo of our application's functionality
-
-## Additional Requirements for Grade VG
-
-- We needed to save user data in localStorage
-- We had to implement diagram/graphic functionality using SVG or Canvas
-- We weren't allowed to use libraries for SVG/Canvas implementation
-
-## Submission
-We were expected to submit:
-- A GitHub Pages link
-- A ZIP archive with all files (including Playwright tests)
-- A video presentation (MP4 format)
-- Individual documentation (PDF)
-
-## Collaboration
-We were required to work in pairs, but produce individual documentation.
-
-## Grading
-We understood that grading would be a holistic assessment based on meeting requirements and code quality.
-
 # HMS Weather Forecast
 
-HMS Weather Forecast is a web application that provides weather forecasts for locations around the world. This project was created by Andreas Siggelin and Joakim Haglund Malm.
+HMS Weather Forecast is a web application that provides weather forecasts for locations around the world. This project was created by Andreas Siggelin and Joakim Haglund Malm to fulfill the requirements of our Vue Application Project assignment in our Frontend course for our .NET-developer class.
+
+## Part 1: Project Requirements
+
+### Overview
+We were tasked with developing a complete application using Vue based on our own ideas. The application was expected to be similar in scope to our earlier TodoMVC assignment or slightly larger.
+
+### Requirements for a passing grade
+
+#### Functionality
+- App similar in size to TodoMVC or slightly larger
+- Use of example/starter data from a separate JSON file or external API if needed
+- Avoid functionality requiring extensive user data input
+
+#### Testing
+- 3-10 GUI tests using Playwright
+
+#### JavaScript
+- Use Vue (React allowed as an alternative)
+- TypeScript optional
+- Other libraries/frameworks require approval
+
+#### CSS
+- Write CSS from scratch (no frameworks like Bootstrap)
+- Responsive design for mobile, tablet, and desktop
+- Original graphic design (free fonts/images allowed)
+
+#### HTML
+- Write HTML from scratch
+- Use semantic HTML where appropriate
+
+#### Code Style
+- Consistent indentation and formatting
+- Clear naming conventions
+- Appropriate comments
+- Reasonable function/class division
+
+### Additional Requirements for Grade VG
+- Save user data in localStorage
+- Implement diagram/graphic functionality using SVG or Canvas
+- No libraries allowed for SVG/Canvas implementation
+
+## Part 2: How We Met the Requirements
+
+### Functionality
+- HMS Weather Forecast exceeds the scope of TodoMVC, offering comprehensive weather forecast functionality
+- We integrated the Open-Meteo API to fetch real-time weather data
+- User input is limited to location search, avoiding extensive data entry
+
+### Testing
+- Implemented 5 GUI tests using Playwright, covering key user interactions and display elements
+
+### JavaScript
+- Utilized Vue.js 3 as our primary framework
+- No additional libraries were used without approval
+
+### CSS
+- All CSS written from scratch, without the use of frameworks
+- Fully responsive design, adapting to mobile, tablet, and desktop views
+- Original graphic design with custom SVG icons for weather representations
+
+### HTML
+- All HTML written from scratch
+- Semantic HTML elements used throughout the application
+
+### Code Style
+- Maintained consistent indentation and formatting across all files
+- Clear naming conventions for variables, functions, and components
+- Appropriate comments included to explain complex logic
+- Application organized into logical components and functions
+
+### Higher Grade Requirements
+- User preferences and recent searches saved in localStorage
+- Custom SVG icons and graphs implemented for weather representation without external libraries
 
 ## Features
 
@@ -73,6 +83,8 @@ HMS Weather Forecast is a web application that provides weather forecasts for lo
 - Visual weather representation with icons
 - Temperature, precipitation, and wind information
 - Responsive design for various screen sizes
+- Data persistence using localStorage
+- SVG implementation for weather icons and graphs
 
 ## Technologies Used
 
@@ -99,7 +111,7 @@ To run this project locally:
 
 ## Running Tests
 
-This project uses Playwright for testing. To run the tests:
+To run the Playwright tests:
 
 1. Install dependencies:
    ```
@@ -110,20 +122,16 @@ This project uses Playwright for testing. To run the tests:
    npx playwright test
    ```
 
-## Contributing
+## Collaboration
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+This project was a collaborative effort between Andreas Siggelin and Joakim Haglund Malm. While we worked together on the application, we produced individual documentation as required.
 
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## Authors
-
-- Andreas Siggelin
-- Joakim Haglund Malm
-
 ## Acknowledgements
 
 - Weather data provided by [Open-Meteo](https://open-meteo.com/)
-- Icons from [insert icon source if applicable]
+
+By creating HMS Weather Forecast, we believe we have met and exceeded the requirements for the Vue Application Project, demonstrating our skills in front-end development, API integration, testing, and user experience design.
